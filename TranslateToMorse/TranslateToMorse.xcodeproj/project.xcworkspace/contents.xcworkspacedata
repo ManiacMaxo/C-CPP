@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:none.xcodeproj">
+      location = "self:TranslateToMorse.xcodeproj">
    </FileRef>
 </Workspace>
