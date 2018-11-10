@@ -19,6 +19,15 @@ function onLine(line, socket) {
 	}
 	if (socket.lineCnt === 1) {
 		console.log('Request> %s', line)
+			while (buf[i] != ' ')
+				socket.cmd += buf[i++]
+			while (buf[i] != ' ')
+				socket.uri += buf[i++]
+			while (buf[i] != '/')
+				socket.proto += buf[i]
+			while (buf[i] != '\r' || buf[i] != '\n')
+				socket.ver += buf[i]
+		
 		// TODO: parse the request line, having in mind the format:
 		// 		<command> <uri> <protocol>/<version>
 		// parse and set:
