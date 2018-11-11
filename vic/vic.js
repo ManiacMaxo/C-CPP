@@ -9,7 +9,7 @@ function onLine(line, socket) {
 		cmd: '',
 		uri: '',
 		proto: '',
-		ver: 0.0
+		ver: ''
 	}
 	if (line == '') {
 		console.log('!!! end of message. replying... \n')
@@ -18,23 +18,20 @@ function onLine(line, socket) {
 		return
 	}
 	if (socket.lineCnt === 1) {
-		console.log('Request> %s', line)
-			while (buf[i] != ' ')
-				socket.cmd += buf[i++]
-			while (buf[i] != ' ')
-				socket.uri += buf[i++]
-			while (buf[i] != '/')
-				socket.proto += buf[i]
-			while (buf[i] != '\r' || buf[i] != '\n')
-				socket.ver += buf[i]
-		
-		// TODO: parse the request line, having in mind the format:
-		// 		<command> <uri> <protocol>/<version>
-		// parse and set:
-		// socket.cmd = <cmd>
-		// socket.uri = <uri>
-		// socket.proto = <protocol>
-		// socket.ver = <version>
+		var i=0
+		const cmdDelim = {
+			cmd: ' ',
+			uri: ' ',
+			proto: '/',
+			ver: ' ',
+		}
+		Object.keys(cmdDelim).forEach(function(key) {
+			while(line[i] != cmdDelim[key] && i<line.length) {
+				socket.request[key] += line[i++]
+			}
+			i++
+		});
+		console.log(socket.request)
 	} else {
 		console.log('Header> %s', line)
 	}
