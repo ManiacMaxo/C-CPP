@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int findBiggestDigitScore(unsigned int digit) {
-    int max = digit%10;
-        while(digit) {
-            if(digit % 10 > max)
-                max = digit % 10;
-            digit /= 10;
+int findBiggestnumberScore(unsigned int number) {
+    int max = number%10;
+        while(number) {
+            if(number % 10 > max)
+                max = number % 10;
+            number /= 10;
         }
     return max;
 }
 
 int main(int argc, char **argv) {
-
+    printf("%d\n", findBiggestnumberScore(atoi(argv[1])));
 }
