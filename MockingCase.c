@@ -8,9 +8,9 @@ void toMockingCase(char *str) {
         if(!((str[i] > 'a' && str[i] < 'z') || (str[i] > 'A' && str[i] < 'Z')))
             continue;
         else if(i % 2 == 0) {
-            tolower(str[i]);
+            str[i] = tolower(str[i]);
         }
-        else toupper(str[i]);
+        else str[i] = toupper(str[i]);
     }
 }
 

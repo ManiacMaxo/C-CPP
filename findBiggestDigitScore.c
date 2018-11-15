@@ -1,11 +1,12 @@
 #include <stdio.h>
 
-int findBiggestDigitScore(char *str) {
-    int i, max = str[0];
-    for(i=0; i<strlen(str); i++) {
-            if(str[i] > max)
-                max = str[i];
-    }
+int findBiggestDigitScore(unsigned int digit) {
+    int max = digit%10;
+        while(digit) {
+            if(digit % 10 > max)
+                max = digit % 10;
+            digit /= 10;
+        }
     return max;
 }
 
