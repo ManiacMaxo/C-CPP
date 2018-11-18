@@ -1,10 +1,10 @@
 #include <stdio.h>
 
 int decToBinary(int n) {
-    int a[100], i;
+    int a[16], i;
     for(i=0; n>0; i++) {
         a[i] = n%2;
-        n = n/2;
+        n /= 2;
     }
     return a;
 }

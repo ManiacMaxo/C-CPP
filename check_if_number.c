@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int checker(char *str) {
     int i=0;
@@ -18,10 +19,9 @@ int main() {
     int s;
     printf("Enter a number: ");
     gets(str);
-    if(checker(str) == 1) {
+    if(checker(str)) {
         s = atoi(str);
         printf("String is a number %d\n", s);
-    } else {
+    } else
         printf("That is not a number!\n");
-    }
 }

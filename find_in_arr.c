@@ -1,29 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main(){
-    int i, x, c, k, a[100];
-    srand(0);
-    for (i = 0; i < 100; i++) {
-        a[i] = rand() % (100 + 1 - 0) + 0;
-    }
-    
-    for(i=0; i<100; i++) {
-        for(k=0; k<=99; k++){
-            if(a[k]>a[k+1]){
-                c = a[k];
-                a[k] = a[k+1];
-                a[k+1] = c;
-            }
-        }
-    }
-    
-    printf("Number you want to find: ");
-    scanf("%d", &x);
-    
-    for(i=0; i<=100 ;i++) {
-        if(x==a[i])
+int findInArr(char find, char *arr) {
+    int i, len = stren(arr);
+    for (i=0; i<len; i++) {
+        if (find == arr[i])
             return 1;
     }
+    return 0;
+}
+
+int main() {
+    int find, i, arr[100];
+    srand(0);
+    for (i = 0; i < 100; i++) {
+        arr[i] = rand() % (100 + 1 - 0) + 0;
+    }
+    printf("Number you want to find: ");
+    getc(find);
+    printf("%d", findInArr(find, arr));
     return 0;
 }
