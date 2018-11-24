@@ -6,25 +6,29 @@ find how many pairs there are
 
 #include <stdio.h>
 
-int find_num_of_pairs(int *socks, int num_all_socks) {
-    int i, j, temp, num_of_pairs = 0, num_x_socks = 0;
-    for (i = 0; i < num_all_socks; i++) {
-      for (j = 0; i < num_all_socks - 1; i++) {
-          if (socks[i] > socks[i+1]) {
-                temp = socks[j+1];
-                socks[j+1] = socks[j];
-                socks[j] = temp;
-          }
-      }
+void bubbleSort(int *arr, int size) {
+    int i, j, temp;
+    for (i = 0; i < size; i++) {
+        for (j = 0; i < size; i++) {
+            if (arr[i] > arr[i+1]) {
+                temp = arr[j+1];
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+            }
+        }
     }
-    j = 0;
+}
+
+int findNumOfPairs(int *socks, int num_all_socks) {
+    int i, last = 0, num_of_pairs = 0;
+    bubbleSort(socks, num_all_socks);
     for (i = 0; i < num_all_socks; i++) {
-        do {
-            num_x_socks++;
-            j++;
-        } while (socks[j] == socks[j+1]);
-        num_of_pairs += num_x_socks / 2;
-        num_x_socks = 0;
+        if (last == socks[i]) {
+            last = 0;
+            num_of_pairs++;
+        } else {
+            last = socks[i];
+        }
     }
     return num_of_pairs+1;
 }
@@ -34,5 +38,5 @@ int main() {
     scanf("%d", &num_all_socks);
     for (i = 0; i < num_all_socks; i++)
         scanf("%d", &socks[i]);
-    printf("%d", find_num_of_pairs(socks, num_all_socks));
+    printf("%d", findNumOfPairs(socks, num_all_socks));
 }
