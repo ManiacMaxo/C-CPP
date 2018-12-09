@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "stdio.h": "c",
-        "struct_with_point": "c"
-    }
-}
