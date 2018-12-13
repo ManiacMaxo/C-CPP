@@ -5,7 +5,7 @@
 void toUpper(char *str) {
     int i=0, n;
     n = strlen(str);
-    for(i=0; i<n; i++) {
+    for (i=0; i<n; i++) {
         if (str[i] >= 'a' && str[i] <= 'z') {
             str[i] -= 32;
         }
