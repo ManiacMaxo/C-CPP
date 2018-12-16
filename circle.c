@@ -21,7 +21,43 @@ void whichQuads(struct circle_t circle) {
 	int z = sqrt(pow(circle.center_x, 2) + pow(circle.center_y, 2));
 	printf("r = %d, x = %d, y = %d\n", circle.r, circle.center_x, circle.center_y);
 
-	if (circle.center_x > 0 && circle.center_y > 0) { // Quad 1
+	if (z < circle.r) {
+		// left & right & top & bot
+	} else {
+		if (abs(circle.center_x) < circle.r) {
+			// left & right
+		} else {
+			if (circle.center_x > circle.r) {
+				// right
+			} else {
+				// left
+			}
+		}
+
+		if (abs(circle.center_y) < circle.r) {
+			// top & bot
+		} else {
+			if (circle.center_y > circle.r) {
+				// top
+			} else {
+				// bot
+			}
+		}
+	}
+
+/*
+	if (circle.center_x == 0) {
+		if (circle.center_y == 0) {
+			circleQuads[0] = 1;
+			circleQuads[1] = 1;
+			circleQuads[2] = 1;
+			circleQuads[3] = 1;
+		} else {
+			if (circle.center_y)
+		}
+	} else if () {
+
+	} else if (circle.center_x > 0 && circle.center_y > 0) { // Quad 1
 		printf("center quadrant 1\n");
 		circleQuads[0] = 1;
 		if (circle.center_x - circle.r <= 0) { // Quad 2
@@ -70,6 +106,7 @@ void whichQuads(struct circle_t circle) {
 			circleQuads[1] = 1;
 		}
 	}
+	*/
 }
 
 int main() {
