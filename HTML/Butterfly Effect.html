@@ -3,96 +3,110 @@
 <html>
 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .dropbtn {
+            background-color: #3498DB;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
 
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-}
+        .dropbtn:hover,
+        .dropbtn:focus {
+            background-color: #2980B9;
+        }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
 
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
 
-.dropdown a:hover {background-color: #ddd}
+        .dropdown a:hover {
+            background-color: #ddd
+        }
 
-.show {display:block;}
-</style>
+        .show {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Choose a song</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="Gods Plan.html">God's Plan</a>
-    <a href="Kings Dead.html">King's Dead</a>
-  </div>
-</div>
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Choose a song</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="Gods Plan.html">God's Plan</a>
+            <a href="Kings Dead.html">King's Dead</a>
+        </div>
+    </div>
 
-<script>
+    <script>
 
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 
 <head>
     <meta charset="UTF-8">
     <style>
-       p {text-align:center;}
-       h1,pre {text-align:center; font-family: "Times New Roman", Times New Roman, monospace;}
+        p {
+            text-align: center;
+        }
+
+        h1,
+        pre {
+            text-align: center;
+            font-family: "Times New Roman", Times New Roman, monospace;
+        }
     </style>
     <title>Buttefly Effect</title>
 </head>
 
 <body>
-        <h1>Buttefly Effect</h1>
-      <a href="https://www.youtube.com/watch?v=_EyZUTDAH0U" target="_blank">
-<p><img src="https://i.ytimg.com/vi/t_jR3lqgHMY/maxresdefault.jpg" width="700"></p></a>
+    <h1>Buttefly Effect</h1>
+    <a href="https://www.youtube.com/watch?v=_EyZUTDAH0U" target="_blank">
+        <p><img src="https://i.ytimg.com/vi/t_jR3lqgHMY/maxresdefault.jpg" width="700"></p>
+    </a>
 
-<pre>
+    <pre>
 Murda on the beat so it's not nice
 
 For this life, I cannot change (change)
@@ -152,4 +166,5 @@ Drop the top, pop it, let it bang (ay)
 Yah!
 </pre>
 </body>
+
 </html>

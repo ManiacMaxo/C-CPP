@@ -4,7 +4,7 @@ const net = require('net')
 
 function onLine(line, socket) {
 	socket.lineCnt++
-	var i=0
+	var i = 0
 	if (line == '') {
 		console.log('end of message. replying...')
 		console.log(socket.request)
@@ -25,8 +25,8 @@ function onLine(line, socket) {
 			proto: '/',
 			ver: ' ',
 		}
-		Object.keys(cmdDelim).forEach(function(key) {
-			while(line[i] != cmdDelim[key] && i<line.length) {
+		Object.keys(cmdDelim).forEach(function (key) {
+			while (line[i] != cmdDelim[key] && i < line.length) {
 				socket.request[key] += line[i++]
 			}
 			i++
@@ -41,7 +41,7 @@ function onLine(line, socket) {
 			metColon = metColon || line[i] == ':'
 			i++
 		}
-		if (!metColon) 
+		if (!metColon)
 			throw 'invalid header key'
 		for (; i < line.length; i++)
 			value += line[i]
@@ -53,9 +53,9 @@ function onConnection(socket) {
 	var line = ''
 	var lastIsCrLf = false
 	console.log('\nconnected from %s:%s', socket.remoteAddress, socket.remotePort)
-	socket.on('data', function(data) {
+	socket.on('data', function (data) {
 		data = '' + data
-		for (var i=0; i<= data.length; i++) {
+		for (var i = 0; i <= data.length; i++) {
 			if (data[i] === '\r' || data[i] === '\n') {
 				if (!lastIsCrLf) {
 					onLine(line, socket)
@@ -68,7 +68,7 @@ function onConnection(socket) {
 				lastIsCrLf = false
 				line += data[i]
 			}
-			
+
 		}
 	})
 }
