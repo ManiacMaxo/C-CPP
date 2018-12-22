@@ -5,12 +5,12 @@
 void fix(char *str) {
     int i = 0, j = 0, lastSpace = 1;
     char strFixed[size];
-    
-    for (i=0; i<strlen(str); i++) {
+
+    for (i = 0; i < strlen(str); i++) {
         if (str[i] == ' ') {
-            if (lastSpace == 1) { // consecutive space found. skip it
+            if (lastSpace == 1) {  // consecutive space found. skip it
                 continue;
-            } else { // first space found. remember it
+            } else {  // first space found. remember it
                 lastSpace = 1;
             }
         } else {
@@ -19,8 +19,8 @@ void fix(char *str) {
         strFixed[j] = str[i];
         j++;
     }
-    if(strFixed[j-1] == ' ') {
-        strFixed[j-1] = '\0';
+    if (strFixed[j - 1] == ' ') {
+        strFixed[j - 1] = '\0';
     } else {
         strFixed[j] = '\0';
     }

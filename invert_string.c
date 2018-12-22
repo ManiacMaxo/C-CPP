@@ -5,7 +5,7 @@ void invertStr(char *str) {
     int i, j, len = strlen(str);
     j = len;
     char strHelp[len];
-    for (i=0; i<len; i++)
+    for (i = 0; i < len; i++)
         str[i] = strHelp[j--];
     strcpy(str, strHelp);
 }

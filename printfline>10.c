@@ -6,11 +6,10 @@ int fileRead(char* fName) {
     FILE* file;
     char s[max];
     file = fopen(fName, "r");
-    if(file) {
-        while(!feof(file)) {
+    if (file) {
+        while (!feof(file)) {
             fgets(s, max, file);
-            if(strlen(s)>10)
-                printf("%s", s);
+            if (strlen(s) > 10) printf("%s", s);
         }
         fclose(file);
         return 1;

@@ -13,8 +13,8 @@ int threeOnLine(struct point_t *p) {
 int main() {
     int i;
     struct point_t point[2];
-    for(i=0; i<strlen(point); i++) {
-        printf("Enter a coordinate for point %d\n", i+1);
+    for (i = 0; i < strlen(point); i++) {
+        printf("Enter a coordinate for point %d\n", i + 1);
         scanf("%f", &point[i].x);
         scanf("%f", &point[i].y);
     }

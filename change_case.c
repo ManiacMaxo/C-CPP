@@ -3,9 +3,9 @@
 #include <string.h>
 
 void toUpper(char *str) {
-    int i=0, n;
+    int i = 0, n;
     n = strlen(str);
-    for (i=0; i<n; i++) {
+    for (i = 0; i < n; i++) {
         if (str[i] >= 'a' && str[i] <= 'z') {
             str[i] -= 32;
         }
@@ -13,9 +13,9 @@ void toUpper(char *str) {
 }
 
 void toLower(char *str) {
-    int i=0, n;
+    int i = 0, n;
     n = strlen(str);
-    for(i=0; i<n; i++) {
+    for (i = 0; i < n; i++) {
         if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] += 32;
         }
@@ -29,9 +29,10 @@ int main() {
     gets(str);
     do {
         scanf("%d", &kind);
-    } while(kind!=1 && kind!=2);
-    if(kind == 1)
+    } while (kind != 1 && kind != 2);
+    if (kind == 1)
         toUpper(str);
-    else toLower(str);
+    else
+        toLower(str);
     printf("%s", str);
 }

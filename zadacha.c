@@ -1,23 +1,20 @@
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 struct circle_t {
-	int r;
-	int center_x;
-	int center_y;
+    int r;
+    int center_x;
+    int center_y;
 };
 
 float circleCircumference(struct circle_t circle) {
-	return 2 * M_PI * circle.r;
+    return 2 * M_PI * circle.r;
 }
 
-float circleArea(struct circle_t circle) {
-	return M_PI * circle.r * circle.r;
-}
+float circleArea(struct circle_t circle) { return M_PI * circle.r * circle.r; }
 
 int main() {
-	struct circle_t circle;
-	
+    struct circle_t circle;
 
-	return 0;
+    return 0;
 }

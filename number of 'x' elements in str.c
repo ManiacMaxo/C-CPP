@@ -3,8 +3,8 @@
 #define num 100
 
 int myFind(char *str, char x) {
-    int i, p=0;
-    for(i=0; i<strlen(str); i++) {
+    int i, p = 0;
+    for (i = 0; i < strlen(str); i++) {
         p += (str[i] == x);
     }
     return p;

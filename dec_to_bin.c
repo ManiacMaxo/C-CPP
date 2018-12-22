@@ -2,8 +2,8 @@
 
 int decToBinary(int n) {
     int a[16], i;
-    for(i=0; n>0; i++) {
-        a[i] = n%2;
+    for (i = 0; n > 0; i++) {
+        a[i] = n % 2;
         n /= 2;
     }
     return a;
