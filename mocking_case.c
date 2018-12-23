@@ -7,8 +7,7 @@ int ind = 0;
 void toMockingCase(char *str) {
     int i, len = strlen(str);
     for (i = 0; i < len; i++) {
-        if (!((str[i] >= 'a' && str[i] <= 'z') ||
-              (str[i] >= 'A' && str[i] <= 'Z')))
+        if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')))
             continue;
         else if (ind % 2 == 0) {
             str[i] = tolower(str[i]);

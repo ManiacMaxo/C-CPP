@@ -30,9 +30,10 @@ int main() {
     do {
         scanf("%d", &kind);
     } while (kind != 1 && kind != 2);
-    if (kind == 1)
+    if (kind == 1) {
         toUpper(str);
-    else
+    } else {
         toLower(str);
+    }
     printf("%s", str);
 }

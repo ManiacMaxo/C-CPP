@@ -13,9 +13,8 @@ void sort(int *a, int l) {
     }
 }
 
-void my_print(int a[], int l) {
-    int i;
-    for (i = 0; i < l; i++) {
+void my_print(int *a, int l) {
+    for (int i = 0; i < l; i++) {
         printf("%d: %d\n", i, a[i]);
     }
 }

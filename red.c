@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,47 +6,62 @@
 
 typedef struct {
     int start;
-    int stop;
-    int sum;
+    int end;
 } tResult;
 
 tResult red(int n, int *a) {
-    int i, diff;
-    tResult r = {0, 0, 0};
-    int currStart = 0, lastDiff = 0, len = 0, sum = 0;
-    for (i = 1; i < n; i++) {
-        diff = abs(a[currStart] - a[i]);
-        printf("%d %d %d\n", currStart, i, diff);
-        if (diff >= lastDiff) {
-            lastDiff = diff;
-            len++;
-        } else {
-            if (i - currStart - 1 > r.stop - r.start) {
-                r.start = currStart;
-                r.stop = i - 1;
-            }
-            lastDiff = 0;
-            currStart++;
-            i = currStart + 1;
-            printf("\n");
+    int i;
+    tResult r;
+    int min = INT_MAX, max = INT_MIN;
+    for (i = 0; i < n; i++) {
+        if (a[i] < min) {
+            min = a[i];
         }
-        printf("%d\n", a[i]);
+        if (a[i] > max) {
+            max = a[i];
+        }
+    }
+
+    int fposmin = -1, fposmax = -1, lposmin = -1, lposmax = -1;
+    for (i = 0; i < n; i++) {
+        if (a[i] == min && fposmin == -1) {
+            fposmin = i;
+        } else if (a[i] == min) {
+            lposmin = i;
+        } else if (a[i] == max && fposmax == -1) {
+            fposmax = i;
+        } else if (a[i] == max) {
+            lposmax = i;
+        }
+    }
+    int minmax = lposmax - fposmin;
+    int maxmin = lposmin - fposmax;
+    if (minmax > maxmin) {
+        r.start = fposmin;
+        r.end = lposmax;
+    } else if (maxmin > minmax) {
+        r.start = fposmax;
+        r.end = lposmin;
+    } else if (fposmin < fposmax) {
+        r.start = fposmin;
+        r.end = lposmax;
+    } else {
+        r.start = fposmax;
+        r.end = lposmin;
     }
     return r;
 }
 
 int main() {
-    int a[] = {3, 1, 2, 5, 5, 4, 4, 5, 3, 1};
-    int n = sizeof(a) / sizeof(int);
-    //   scanf("%d", &n);
-    //    for (int i = 0; i < n; i++)
-    //        scanf("%d", &arr[i]);
-    //    printf("%d %d", start, end);
-    tResult r = red(n, a);
-    printf("\n");
-    for (int i = 0; i < n; i++) printf("%d ", a[i]);
-    printf("\n");
-    printf("start: %d\tstop: %d\n", r.start, r.stop);
+    int *a;
+    int n;
+    tResult r;
+    scanf("%d", &n);
+    a = malloc(n);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    r = red(n, a);
+    printf("%d %d", r.start + 1, r.end + 1);
 
     return 0;
 }

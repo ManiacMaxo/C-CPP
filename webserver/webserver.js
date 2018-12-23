@@ -32,7 +32,9 @@ function onLine(line, socket) {
 			i++
 		});
 	} else {
-		var key = '', value = '', metColon = false
+		var key = '',
+			value = '',
+			metColon = false
 		while (line[i] != ' ' && line[i] != '\t' && line[i] != ':') {
 			key += line[i]
 			i++

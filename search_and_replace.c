@@ -2,25 +2,29 @@
 #include <string.h>
 #define MAX 100
 
-char str2[MAX];
-int search(char *str, char *find) {
-    int i, j = 0, n = 0;
-    for (i = 0; i < strlen(str); i++) {
+int searchOccur(char *str, char *find) {
+    int lenStr = strlen(str), lenFind = strlen(find), j = 0, lastIsInFind = 0, numOccur = 0;
+    for (int i = 0; i < lenStr; i++) {
         if (str[i] == find[j]) {
-            while (str[i] == find[j] && n < strlen(find)) {
-                i++;
-                j++;
-                n++;
+            lastIsInFind = 1;
+            j++;
+            if (j == lenFind) {
+                numOccur++;
+                j = 0;
             }
+        } else {
+            lastIsInFind = 0;
         }
     }
-    j = 0;
-    while (i < strlen(str)) {
-        str2[j] = str[i];
-    }
-    return n;
+    return numOccur;
 }
 
-void replace(char *str, char *replace) { int i; }
+char *replace(char *str, char *replace, char *find, int numOccur) {
+    char *strReplaced;
+    strReplaced = malloc(strlen(str) + numOccur * abs(strlen(find) - strlen(replace)));
+}
 
-int main() { char str[MAX], find[MAX], replace[MAX]; }
+int main() {
+    char str[MAX], find[MAX], replace[MAX];
+    int numOccur = searchOccur(str, find);
+}
