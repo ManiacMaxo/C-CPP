@@ -7,26 +7,35 @@ struct gun_t {
 };
 
 int getScore(int gun_accuracy, int shot_accuracy) {
-    int score = 0, i = 1, j = 9;
+    short score = 0, n = (100 - gun_accuracy) / 9, i = 1, score = 9;
     if (shot_accuracy <= gun_accuracy) {
-        score = 10;
+        return 10;
     } else {
         do {
             if (shot_accuracy >= gun_accuracy + i && shot_accuracy <= gun_accuracy + i + 5) {
-                i += 5;
-                score = j;
-                j--;
+                return score;
             }
-        } while (!score);
+            i += n;
+            score--;
+        } while (42);
     }
     return score;
 }
 
+int getScore2(int gun_accuracy, int shot_accuracy) {
+    short i, j;
+    short n1 = gun_accuracy / ?, n2 = (100 - gun_accuracy) / ?;
+    if (shot_accuracy < gun_accuracy) {
+        for (i = 0; i < gun_accuracy; i += n1) {
+        }
+    }
+}
+
 void testGun(struct gun_t gun, int shot_count) {
-    int hit_or_miss, overall = 0, currentS;
+    short shot_accuracy, overall = 0, currentS;
     for (int i = 0; i < shot_count; i++) {
-        hit_or_miss = rand() % 100;
-        currentS = getScore(gun.accuracy, hit_or_miss);
+        shot_accuracy = rand() % 100;
+        currentS = getScore(gun.accuracy, shot_accuracy);
         overall += currentS;
         printf("shot %d score: %d\n", i, currentS);
         printf("overall score: %d\t average: %d\n", overall, overall / (i + 1));
@@ -34,7 +43,7 @@ void testGun(struct gun_t gun, int shot_count) {
 }
 
 int main() {
-    int shot_count;
+    short shot_count;
     struct gun_t gun = {
         .model = "M1A",
         .accuracy = 70,
