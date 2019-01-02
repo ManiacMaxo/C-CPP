@@ -24,11 +24,6 @@ int getScore(int gun_accuracy, int shot_accuracy) {
 
 int getScore2(int gun_accuracy, int shot_accuracy) {
     short i, j;
-    short n1 = gun_accuracy / ?, n2 = (100 - gun_accuracy) / ?;
-    if (shot_accuracy < gun_accuracy) {
-        for (i = 0; i < gun_accuracy; i += n1) {
-        }
-    }
 }
 
 void testGun(struct gun_t gun, int shot_count) {
