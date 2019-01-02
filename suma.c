@@ -13,5 +13,4 @@ int main() {
     for (i = 0; i < n; i++) {
         S1 += a[i];
     }
-    for
 }
