@@ -33,7 +33,7 @@ int getScore2(int gun_accuracy, int shot_accuracy) {
     }
 
     do {
-        if ((shot_accuracy >= a[i] && shot_accuracy <= a[i + 1]) || (shot_accuracy >= b[i] && shot_accuracy b[i])) {
+        if ((shot_accuracy >= a[i] && shot_accuracy <= a[i + 1]) || (shot_accuracy >= b[i] && shot_accuracy <= b[i])) {
             return score;
         }
         score--;
