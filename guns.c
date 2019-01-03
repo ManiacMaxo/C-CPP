@@ -39,13 +39,13 @@ int getScore(int gun_accuracy, int shot_accuracy) {
 }
 
 void testGun(struct gun_t gun, int shot_count) {
-    short shot_accuracy, overall = 0, currentS;
+    short shot_accuracy, overallS = 0, currentS;
     for (int i = 0; i < shot_count; i++) {
         shot_accuracy = rand() % 100;
         currentS = getScore(gun.accuracy, shot_accuracy);
-        overall += currentS;
+        overallS += currentS;
         printf("shot %d score: %d\n", i, currentS);
-        printf("overall score: %d\t average: %d\n", overall, overall / (i + 1));
+        printf("overall score: %d\t average: %d\n", overallS, overallS / (i + 1));
     }
 }
 
