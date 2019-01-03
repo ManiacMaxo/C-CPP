@@ -31,13 +31,11 @@ int getScore2(int gun_accuracy, int shot_accuracy) {
         a[i] = gun_accuracy - i * gun_accuracy / 10;
         b[i] = gun_accuracy - i * (100 - gun_accuracy) / 10;
     }
-
-    do {
-        if ((shot_accuracy >= a[i] && shot_accuracy <= a[i + 1]) || (shot_accuracy >= b[i] && shot_accuracy <= b[i])) {
+    for (i = 0; i < 10; i++, score--) {
+        if (shot_accuracy >= a[i] && shot_accuracy <= b[i]) {
             return score;
         }
-        score--;
-    } while (42);
+    }
 }
 
 void testGun(struct gun_t gun, int shot_count) {
