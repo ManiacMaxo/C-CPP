@@ -7,7 +7,7 @@ struct gun_t {
 };
 
 int getScore(int gun_accuracy, int shot_accuracy) {
-    short score = 0, n = (100 - gun_accuracy) / 9, i = 1, score = 9;
+    short score = 0, n = (100 - gun_accuracy) / 10, i = 1, score = 9;
     if (shot_accuracy <= gun_accuracy) {
         return 10;
     } else {
@@ -24,6 +24,8 @@ int getScore(int gun_accuracy, int shot_accuracy) {
 
 int getScore2(int gun_accuracy, int shot_accuracy) {
     short i, j;
+    short d1 = gun_accuracy / 10, d2 = 100 - gun_accuracy / 10;
+
 }
 
 void testGun(struct gun_t gun, int shot_count) {
