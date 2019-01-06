@@ -8,7 +8,7 @@ struct tree_t {
 
 struct forest_t {
     int tree_count;
-    struct tree_t trees[1000];
+    struct tree_t trees[100];
 };
 
 struct forest_t ageTrees(struct forest_t *forest) {
@@ -25,14 +25,14 @@ void printTree(struct tree_t tree, int num) {
 
 void printForest(struct forest_t forest) {
     for (int i = 0; i < forest.tree_count; i++) {
-        prinTree(forest.trees, i);
+        printTree(forest.trees[i], i);
     }
 }
 
 struct forest_t cutOldTrees(struct forest_t *forest, int age_threshold) {
     for (int i = 0; i < forest->tree_count; i++) {
         if (forest->trees[i].age >= age_threshold) {
-            printf("Cut tree %d with age %f\n", i, forest->trees[i].age);
+            printf("Cut tree %d with age %d\n", i, forest->trees[i].age);
             forest->trees[i].age = 1;
             forest->trees[i].height = 0.5;
         }
@@ -61,8 +61,8 @@ struct forest_t makeForest(struct forest_t *forest) {
 int main(int argc, char **argv) {
     struct forest_t forest;
     makeForest(&forest);
-    int years = atoi(argv[1]), age_threshold = atoi(argv[2]), j = 0;
-    float height_threshold = atoi(argv[3]);
+    int years = atoi(argv[1]), age_threshold = atoi(argv[2]);
+    float height_threshold = atof(argv[3]);
     for (int i = 0; i < years; i++) {
         printForest(forest);
         ageTrees(&forest);
