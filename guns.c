@@ -5,23 +5,7 @@ struct gun_t {
     int accuracy;
     int ammo_capacity;
 };
-/*
-int getScore(int gun_accuracy, int shot_accuracy) {
-    short score = 0, n = (100 - gun_accuracy) / 10, i = 1, score = 9;
-    if (shot_accuracy <= gun_accuracy) {
-        return 10;
-    } else {
-        do {
-            if (shot_accuracy >= gun_accuracy + i && shot_accuracy <= gun_accuracy + i + 5) {
-                return score;
-            }
-            i += n;
-            score--;
-        } while (42);
-    }
-    return score;
-}
-*/
+
 int getScore(int gun_accuracy, int shot_accuracy) {
     short i, j;
     short score = 10;
@@ -37,8 +21,6 @@ int getScore(int gun_accuracy, int shot_accuracy) {
         }
     }
 }
-/* Условието не е добре описано за точка 2* и не знаех какво имате в предвид под параболична графика.
-Това е как го разбрах, спрямо gun_accuracy съм нагласил точките, което няма много смисъл */
 
 void testGun(struct gun_t gun, int shot_count) {
     short shot_accuracy, overallS = 0, currentS;
