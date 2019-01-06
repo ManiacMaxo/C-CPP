@@ -29,7 +29,7 @@ int getScore(int gun_accuracy, int shot_accuracy) {
         }
     }
     return score;
-}
+}  // не разбирам условието на задачата
 
 void testGun(struct gun_t gun, int shot_count) {
     short shot_accuracy, overallS = 0, currentS;
