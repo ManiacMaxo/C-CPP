@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_TREES 100
+
 struct tree_t {
     float height;
     int age;
@@ -8,7 +10,7 @@ struct tree_t {
 
 struct forest_t {
     int tree_count;
-    struct tree_t trees[100];
+    struct tree_t trees[MAX_TREES];
 };
 
 struct forest_t ageTrees(struct forest_t *forest) {
@@ -20,7 +22,7 @@ struct forest_t ageTrees(struct forest_t *forest) {
 }
 
 void printTree(struct tree_t tree, int num) {
-    printf("tree %d height: %f\tage: %d\n", num, tree.height, tree.age);
+    printf("tree %d\theight: %f\tage: %d\n", num, tree.height, tree.age);
 }
 
 void printForest(struct forest_t forest) {
@@ -60,6 +62,7 @@ struct forest_t makeForest(struct forest_t *forest) {
 
 int main(int argc, char **argv) {
     struct forest_t forest;
+    forest.tree_count = MAX_TREES;
     makeForest(&forest);
     int years = atoi(argv[1]), age_threshold = atoi(argv[2]);
     float height_threshold = atof(argv[3]);
