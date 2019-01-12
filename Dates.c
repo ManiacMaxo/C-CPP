@@ -55,9 +55,7 @@ int* prevdate(int d, int m, int y) {
 
 int* nextdate(int d, int m, int y) {
     static int n[3];
-    if ((d <= 27) || (d <= 28 && m == 2 && isLeap(y) == 1) ||
-        (d <= 29 && m != 2) ||
-        (d <= 30 && (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12))) {
+    if ((d <= 27) || (d <= 28 && m == 2 && isLeap(y) == 1) || (d <= 29 && m != 2) || (d <= 30 && (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12))) {
         n[0] = d + 1;
         n[1] = m;
         n[2] = y;
@@ -112,10 +110,7 @@ int main() {
             printf("\nYear: ");
             scanf("%d", &year);
         } while (year < 1);
-    } while ((day == 31 && (month == 2 || month == 4 || month == 6 ||
-                            month == 9 || month == 11)) ||
-             (day == 30 && month == 2) ||
-             (day == 29 && month == 2 && isLeap(year) == 0));
+    } while ((day == 31 && (month == 2 || month == 4 || month == 6 || month == 9 || month == 11)) || (day == 30 && month == 2) || (day == 29 && month == 2 && isLeap(year) == 0));
 
     int* prev = prevdate(day, month, year);
     printf("\nPrevious date: %d:%d:%d", *prev, *(prev + 1), *(prev + 2));
