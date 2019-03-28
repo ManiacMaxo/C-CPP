@@ -7,11 +7,9 @@ int longest_num(char *str) {
         if (str[i] >= '0' && str[i] <= '9') {
             if (!(count == 0 && str[i] == '0')) {
                 count++;
-                if (count > longest) {
-                    longest = count;
-                }
             }
         } else {
+            longest = count > longest ? count : longest;
             count = 0;
         }
     }
