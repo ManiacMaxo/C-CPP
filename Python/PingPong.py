@@ -18,15 +18,19 @@ c = Canvas(t, width=w, height=h)
 c.pack()
 
 dot = c.create_oval((w-r)/2, (h-r)/2, (w+r)/2, (h+r)/2, fill="blue")
-bar = c.create_rectangle(barOffset, (h-barH)/2, barOffset + barW, (h+barH) / 2, fill = "red")
+bar = c.create_rectangle(barOffset, (h-barH)/2,
+                         barOffset + barW, (h+barH) / 2, fill="red")
 text = c.create_text(w/2, h-20, text="Score: 0", font=('Times', 30))
 
 isRunning = False
+
+
 def startIfNot():
     global isRunning
     if not(isRunning):
         isRunning = True
         t.after(10, onTimer)
+
 
 def isCollide(side):
     global dot
@@ -44,8 +48,9 @@ def isCollide(side):
     if side == "bar":
         barCoords = c.coords(bar)
         return vectorX < 0 and coords[0] <= barCoords[2] and \
-               coords[3] >= barCoords[1] and coords[1] <= barCoords[3]
-            
+            coords[3] >= barCoords[1] and coords[1] <= barCoords[3]
+
+
 def reflect(side):
     global vectorX
     global vectorY
@@ -54,15 +59,18 @@ def reflect(side):
     if side == "left" or side == "right" or side == "bar":
         vectorX *= -1
 
+
 def up():
     coords = c.coords(bar)
     if coords[1] > 0:
         c.move(bar, 0, -barSpeed)
 
+
 def down():
     coords = c.coords(bar)
     if coords[3] < h:
         c.move(bar, 0, barSpeed)
+
 
 def press(e):
     global isUp
@@ -73,6 +81,7 @@ def press(e):
     if e.keysym == "Down":
         isDown = True
 
+
 def release(e):
     global isUp
     global isDown
@@ -80,16 +89,20 @@ def release(e):
         isUp = False
     if e.keysym == "Down":
         isDown = False
+
+
 def incrementScore():
     global text
     global score
     score += 1
     c.itemconfig(text, text="Score: %s" % score)
 
+
 def endGame():
     global text
     global score
     c.itemconfig(text, text="Game Over!. Score: %s" % score)
+
 
 def onTimer():
     global isUp
@@ -108,6 +121,7 @@ def onTimer():
         endGame()
     else:
         t.after(10, onTimer)
+
 
 t.bind("<KeyPress-Up>", press)
 t.bind("<KeyPress-Down>", press)
