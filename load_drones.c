@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     char *model;
@@ -21,7 +22,14 @@ void load_drones(drone_t *main, drone_t *backup, int load) {
 }
 
 int main(int argc, char **argv) {
-    int num_d;
+    int iterations = atoi(argv[2]), num_d = atoi(argv[1]);
     drone_t *drones = malloc(num_d * sizeof(drone_t));
+    for (int i = 0; i < num_d; i++) {
+        drones[i] = {"MODEL X", i * 10, i};
+    }
+
+    for (int i = 0; i < iterations; i++) {
+        load_drones();
+    }
     return 0;
 }
