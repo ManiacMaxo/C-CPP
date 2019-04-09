@@ -7,6 +7,12 @@ typedef struct {
     char destination[30];
 } packet_t;
 
+void swap(packet_t *A, packet_t *B) {
+    packet_t temp = *A;
+    *A = *B;
+    *B = temp;
+}    
+
 void sort_ascending(packet_t *packets) {
     packet_t temp;
     int swapped = 0;
