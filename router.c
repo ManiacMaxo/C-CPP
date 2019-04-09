@@ -7,15 +7,19 @@ typedef struct {
     char destination[30];
 } packet_t;
 
+void swap(packet_t *A, packet_t *B) {
+    packet_t temp = *A;
+    *A = *B;
+    *B = temp;
+}    
+
 void sort_ascending(packet_t *packets) {
     packet_t temp;
     for (int i = 0; i < 9; i++) {
         int swapped = 0;
         for (int j = 0; j < i - 1; j++) {
             if (strlen(packets[j].data) > strlen(packets[j + 1].data)) {
-                temp = packets[j];
-                packets[j] = packets[j + 1];
-                packets[j + 1] = temp;
+                swap(packets[j], packets[j+1]);
                 swapped = 1;
             }
         }
