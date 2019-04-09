@@ -20,9 +20,7 @@ void sort_ascending(packet_t *packets) {
         swapped = 0;
         for (int j = 0; j < i - 1; j++) {
             if (strlen(packets[j].data) > strlen(packets[j + 1].data)) {
-                temp = packets[j];
-                packets[j] = packets[j + 1];
-                packets[j + 1] = temp;
+                swap(packets[j], packets[j+1]);
                 swapped = 1;
             }
         }
