@@ -9,9 +9,8 @@ typedef struct {
 
 void sort_ascending(packet_t *packets) {
     packet_t temp;
-    int swapped = 0;
     for (int i = 0; i < 9; i++) {
-        swapped = 0;
+        int swapped = 0;
         for (int j = 0; j < i - 1; j++) {
             if (strlen(packets[j].data) > strlen(packets[j + 1].data)) {
                 temp = packets[j];
@@ -29,13 +28,15 @@ void sort_ascending(packet_t *packets) {
 int main() {
     packet_t packets[10];
     printf("Source\tDestination\tContent\n");
+
     for (int i = 0; i < 10; i++) {
-        scanf("%s %s", &packets[i].source, &packets[i].destination);
+        scanf("%s %s", packets[i].source, packets[i].destination);
         fgets(packets[i].data, 255, stdin);
     }
+
     sort_ascending(packets);
     printf("sending out packets...\n");
     for (int i = 0; i < 10; i++) {
-        printf("From: %s to: %s\t%s", packets[i].source, packets[i].destination, packets[i].data);
+        printf("From: %s To: %s\t%s", packets[i].source, packets[i].destination, packets[i].data);
     }
 }
