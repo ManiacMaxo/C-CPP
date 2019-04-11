@@ -3,35 +3,17 @@
 typedef struct {
     int id;
     int time;
-    int num;
+} process_t;
+
+typedef struct {
+    process_t *processes;
 } processor_t;
 
-void load_pocesses(processor_t **processors, int *time) {  // create queues
-    int i, t[4], min = time[0], minp;
-    char s[2] = "";
-
-    for (i = 0; i < 3; i++) {
-        processors[i]->time += time[i];
-        processors[i]->num++;
-        if (time[i] < min) {
-            min = time[i];
-            minp = i;
-        }
-    }
-
-    processors[minp]->time += time[4];
-    processors[minp]->num++;
-
-    for (i = 0; i < 4; i++) {
-        if (processors[i]->num != 1) {
-            strcpy(s, "es");
-        }
-        printf("Queue for processor %d: %d process%s, Total time: %d\n", i + 1, processors[i]->num, s, processors[i]->time);
-    }
+void queue() {
 }
 
 int main() {
-    processor_t processors[4];  // queues
+    process_t **processors;  // queues
     char input[10];
     int time[5], count = 0;
 
@@ -40,10 +22,10 @@ int main() {
         if (input[0] >= '0' && input[0] <= '9') {
             time[count] = atoi(input);
             *input = '\0';
-        }
-        if (count == 5) {  // return queues
-            count = 0;
-            load_pocesses(processors, time);
+            if (count == 5) {  // return queues
+                count = 0;
+                // queue procceses
+            }
         }
     } while (!strstr("exit", time));  // exit
 
