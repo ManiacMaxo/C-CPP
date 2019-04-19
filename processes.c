@@ -1,33 +1,61 @@
+#include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     int id;
-    int time;
+    int p_time;
 } process_t;
 
 typedef struct {
-    process_t *processes;
-} processor_t;
+    int num;
+    int t_time;
+} values_t;
 
-void queue() {
+void load_queues() {
 }
 
+void *init_queues(values_t **v) {
+    for (int i = 0; i < 3; i++) {
+        v[i]->num = 0;
+        v[i]->t_time = 0;
+    }
+}
+
+void print_queues(values_t *v) {
+    for (int i = 0; i < 3; i++) {
+        printf("Queue for processor %d: %d processes, Total time: %d", i + 1, v[i].num, v[i].t_time);
+    }
+}
+
+// ----------------------------------------------------------------------------------------------------------------
+
 int main() {
-    process_t **processors;  // queues
+    int pid = 0, nump = 50;  // process id, number of processes
     char input[10];
-    int time[5], count = 0;
+    process_t process;
+
+    process_t **queue = (process_t **)malloc(4 * sizeof(process_t));  // queues
+    for (int i = 0; i < 4; i++) {
+        queue[i] = (process_t *)malloc(nump * sizeof(process_t));
+    }
+
+    values_t v[4];
+    init_queues(v);
 
     do {
-        scanf("%s", &input);
+        fgets(input, 10, stdin);
         if (input[0] >= '0' && input[0] <= '9') {
-            time[count] = atoi(input);
+            process.p_time = atoi(input);
+            process.id = pid++;
             *input = '\0';
-            if (count == 5) {  // return queues
-                count = 0;
-                // queue procceses
-            }
+            load_queues(&queue, process, v, &nump);
         }
-    } while (!strstr("exit", time));  // exit
-
+        if (!pid % 5) {
+            print_queues(v);
+        }
+    } while (strstr("exit", input) != 0);  // exit
+    free(queue);
     return 0;
 }
