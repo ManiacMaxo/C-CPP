@@ -28,8 +28,10 @@ int sum_prime(int num) {
     return 0;
 }
 
-int main() {
-    for (int i = 1; i < 1000; i++) {
+int main(int argc, char **argv) {
+    int num = atoi(argv[1]);
+
+    for (int i = 1; i < num; i++) {
         if (sum_prime(i)) {
             printf("%d\n", i);
         }

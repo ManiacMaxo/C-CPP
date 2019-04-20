@@ -11,10 +11,10 @@ void apply(int sum, int x, int y) {
     ly = y;
 }
 
-void horizontal(int matrix[15][15]) {
+void horizontal(int **matrix, int n) {
     int i, x, y, s;
-    for (y = 0; y < 15; y++) {
-        for (x = 0; x < 15 - 4; x++) {
+    for (y = 0; y < n; y++) {
+        for (x = 0; x < n - 4; x++) {
             for (s = 1, i = 0; i < 4; i++) {
                 s *= matrix[y][x + i];
             }
@@ -28,10 +28,10 @@ void horizontal(int matrix[15][15]) {
     }
 }
 
-void vertical(int matrix[15][15]) {
+void vertical(int **matrix, int n) {
     int i, x, y, s;
-    for (x = 0; x < 15; x++) {
-        for (y = 0; y < 15 - 4; y++) {
+    for (x = 0; x < n; x++) {
+        for (y = 0; y < n - 4; y++) {
             for (s = 1, i = 0; i < 4; i++) {
                 s *= matrix[y + i][x];
             }
@@ -45,10 +45,10 @@ void vertical(int matrix[15][15]) {
     }
 }
 
-void diagonal_right(int matrix[15][15]) {
+void diagonal_right(int **matrix, int n) {
     int i, x, y, s;
-    for (y = 0; y < 15 - 4; y++) {
-        for (x = 0; x < 15 - 4; x++) {
+    for (y = 0; y < n - 4; y++) {
+        for (x = 0; x < n - 4; x++) {
             for (s = 1, i = 0; i < 4; i++) {
                 s *= matrix[y + i][x + i];
             }
@@ -62,10 +62,10 @@ void diagonal_right(int matrix[15][15]) {
     }
 }
 
-void diagonal_left(int matrix[15][15]) {
+void diagonal_left(int **matrix, int n) {
     int i, x, y, s;
-    for (y = 0; y < 15 - 4; y++) {
-        for (x = 14; x > 2; x--) {
+    for (y = 0; y < n - 4; y++) {
+        for (x = n; x > 2; x--) {
             for (s = 1, i = 0; i < 4; i++) {
                 s *= matrix[y + i][x - i];
             }
@@ -80,15 +80,18 @@ void diagonal_left(int matrix[15][15]) {
 }
 
 int main() {
+    int n;
     int matrix[15][15];
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 15; j++) {
+    printf("Enter size: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             scanf("%d", &matrix[i][j]);
         }
     }
-    horizontal(matrix);
-    vertical(matrix);
-    diagonal_right(matrix);
-    diagonal_left(matrix);
+    horizontal(matrix, n);
+    vertical(matrix, n);
+    diagonal_right(matrix, n);
+    diagonal_left(matrix, n);
     printf("%d %d %d %s\n", max, ly, lx, dir);
 }

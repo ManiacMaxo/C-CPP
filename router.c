@@ -1,46 +1,30 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct {
     char data[255];
-    char source[30];
-    char destination[30];
+    char src[30];
+    char dst[30];
 } packet_t;
 
-void swap(packet_t *A, packet_t *B) {
-    packet_t temp = *A;
-    *A = *B;
-    *B = temp;
-}
-
-void sort_ascending(packet_t **packets) {
-    packet_t temp;
-    for (int i = 0; i < 9; i++) {
-        int swapped = 0;
-        for (int j = 0; j < i - 1; j++) {
-            if (strlen(packets[j]->data) > strlen(packets[j + 1]->data)) {
-                swap(&packets[j], &packets[j + 1]);
-                swapped = 1;
-            }
-        }
-        if (!swapped) {
-            break;
-        }
-    }
+int cmp(packet_t *f, packet_t *s) {
+    return (strlen(f->data) - strlen(s->data));
 }
 
 int main() {
-    packet_t packets[10];
+    packet_t *packets = malloc(10 * sizeof(packet_t));
     printf("Source\tDestination\tContent\n");
 
     for (int i = 0; i < 10; i++) {
-        scanf("%s %s", packets[i].source, packets[i].destination);
+        scanf("%s %s", packets[i].src, packets[i].dst);
         fgets(packets[i].data, 255, stdin);
     }
 
-    sort_ascending(&packets);
+    qsort(packets, 10, sizeof(packet_t), cmp);
     printf("sending out packets...\n");
     for (int i = 0; i < 10; i++) {
-        printf("From: %s To: %s\t%s", packets[i].source, packets[i].destination, packets[i].data);
+        printf("From: %s\tTo: %s\tContent: %s", packets[i].src, packets[i].dst, packets[i].data);
     }
+    free(packets);
 }
