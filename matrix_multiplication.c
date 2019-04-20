@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 char dir[30];
@@ -11,7 +12,7 @@ void apply(int sum, int x, int y) {
     ly = y;
 }
 
-void horizontal(int **matrix, int n) {
+void horizontal(int matrix[15][15], int n) {
     int i, x, y, s;
     for (y = 0; y < n; y++) {
         for (x = 0; x < n - 4; x++) {
@@ -28,7 +29,7 @@ void horizontal(int **matrix, int n) {
     }
 }
 
-void vertical(int **matrix, int n) {
+void vertical(int matrix[15][15], int n) {
     int i, x, y, s;
     for (x = 0; x < n; x++) {
         for (y = 0; y < n - 4; y++) {
@@ -45,7 +46,7 @@ void vertical(int **matrix, int n) {
     }
 }
 
-void diagonal_right(int **matrix, int n) {
+void diagonal_right(int matrix[15][15], int n) {
     int i, x, y, s;
     for (y = 0; y < n - 4; y++) {
         for (x = 0; x < n - 4; x++) {
@@ -62,10 +63,10 @@ void diagonal_right(int **matrix, int n) {
     }
 }
 
-void diagonal_left(int **matrix, int n) {
+void diagonal_left(int matrix[15][15], int n) {
     int i, x, y, s;
     for (y = 0; y < n - 4; y++) {
-        for (x = n; x > 2; x--) {
+        for (x = n - 1; x > 3; x--) {
             for (s = 1, i = 0; i < 4; i++) {
                 s *= matrix[y + i][x - i];
             }
@@ -80,10 +81,13 @@ void diagonal_left(int **matrix, int n) {
 }
 
 int main() {
-    int n;
-    int matrix[15][15];
-    printf("Enter size: ");
+    int n = 15;
+
+    /* printf("Enter size: ");
     scanf("%d", &n);
+    int(*matrix)[n] = malloc(sizeof(int[n][n])); */
+
+    int matrix[15][15];
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             scanf("%d", &matrix[i][j]);
@@ -93,5 +97,6 @@ int main() {
     vertical(matrix, n);
     diagonal_right(matrix, n);
     diagonal_left(matrix, n);
-    printf("%d %d %d %s\n", max, ly, lx, dir);
+    printf("%d %d %d %s\n", max, lx, ly, dir);
+    //free(matrix);
 }
