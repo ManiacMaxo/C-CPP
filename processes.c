@@ -15,17 +15,7 @@ typedef struct {
     int num;
     int t_time;
 } values_t;
-/* 
-void load_queues(process_t **queues, process_t process, values_t *v, int *nump) {
-    int min = INT_MAX, mpos;
-    for (int i = 0; i < PROCNUM; i++) {
-        if (v[i].t_time < min) {
-            min = v[i].t_time;
-            mpos = i;
-        }
-    }
-}
- */
+
 // ----------------------------------------------------------------------------------------------------------------
 
 int main() {
@@ -67,15 +57,13 @@ int main() {
             v[mpos].num++;
             v[mpos].t_time += process.p_time;
             queue[mpos][v[mpos].num] = process;
-        }
-
-        if (!pid % 5) {
-            for (int i = 0; i < PROCNUM; i++) {
-                printf("Queue for processor %d: %d processes, Total time: %d", i + 1, v[i].num, v[i].t_time);
+            if ((pid % 5) == 0) {
+                for (int i = 0; i < PROCNUM; i++) {
+                    printf("Queue for processor %d: %d processes, Total time: %d\n", i + 1, v[i].num, v[i].t_time);
+                }
             }
         }
-
-    } while (strstr("exit", input) != 0);  // exit
+    } while (strstr(input, "exit") == NULL);  // exit
     free(queue);
     return 0;
 }
