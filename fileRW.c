@@ -13,7 +13,7 @@ int fileWrite(char* fName) {
             if (!isFirst) {
                 fprintf(file, "%s\n", s);
             }
-            gets(s);
+            fgets(s, 100, stdin);
             isFirst = 0;
         }
         fclose(file);
@@ -52,7 +52,7 @@ int fileAppend(char* fName) {
             if (!isFirst) {
                 fprintf(file, "%s\n", s);
             }
-            gets(s);
+            fgets(s, 100, stdin);
             isFirst = 0;
         }
         fclose(file);
