@@ -1,50 +1,50 @@
 #include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int *dist;
 int **map;
-
-int main() {
-    FILE *file = fopen("in.txt", "r");
-    int n = atoi(fgetc(file));
-    *dist = malloc(n * sizeof(int));
-    **map = malloc(n * n * sizeof(int));
-}
 
 int find(int start, int finish, int from, int n) {
     if (dist[start] > 0) {
         return dist[start];
     }
     int min = INT_MAX, res;
+    dist[start] = min;
     for (int i = 0; i < n; i++) {
-        if (map[start][i] == from) {
+        if (i == from) {  // skip the branch we came from
             continue;
         }
-        if (map[start][i] > 0) {
-            if (map[start][i] == finish) {
+        if (map[start][i] > 0) {  // is there a direct connection?
+            if (i == finish) {    // is that the final node we're looking for?
                 res = map[start][i];
-            } else {
-                res = find(map[start][i], finish, from, n);
+            } else {  // recursive dive
+                res = map[start][i] + find(i, finish, start, n);
             }
         }
+        if (res < min) min = res;
+        //        if (min == 1) break;  // don't go further if distance of 1 is found.
     }
+    dist[start] = min;
+    return min;
 }
 
-/* 
-glob[N] = [0..0]
-find(start, finish, from) {
-    if glob[start] > 0 return glob[start]
-    min = 2^16
-    for (each element in "start" row)
-        if element == from continue
-        if value > 0 {
-            if col == finish
-                res = value
-            else
-                res = find(col, finish)
-            if res < min then min = res
+int main() {
+    FILE *file = fopen("in.txt", "r");
+    int n;
+    fscanf(file, "%d", &n);
+    map = malloc(n * sizeof(int));
+    dist = malloc(n * n * sizeof(int));
+    for (int i = 0; i < n; i++) {
+        map[i] = malloc(n * sizeof(int));
+        dist[i] = 0;
+        for (int j = 0; j < n; j++) {
+            fscanf(file, "%d", &map[i][j]);
         }
-    glob[start] = min
-    return min
+    }
+    fclose(file);
+    int start, finish;
+
+    scanf("%d %d", &start, &finish);
+    printf("%d\n", find(start, finish, start, n));
 }
- */
