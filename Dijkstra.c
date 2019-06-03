@@ -4,7 +4,7 @@
 
 int *dist;
 int **map;
-
+/* 
 int find(int start, int finish, int from, int n) {
     if (dist[start] > 0) {
         return dist[start];
@@ -28,16 +28,38 @@ int find(int start, int finish, int from, int n) {
     dist[start] = min;
     return min;
 }
+ */
+
+int find(int start, int finish, int n) {
+    int i, j;
+    int *been = malloc(n * sizeof(int));
+    for (j = 0; j < n; j++) {
+        been[j] = 0;
+        dist[j] = map[start][j];
+    }
+    been[start] = 1;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            if (map[i][j] > 0 && !been[j]) {
+                if ((dist[i] + map[i][j]) < dist[j]) {
+                    dist[j] = map[i][j];
+                }
+            }
+            been[j] = 1;
+        }
+    }
+    return dist[finish];
+}
 
 int main() {
     FILE *file = fopen("in.txt", "r");
     int n;
     fscanf(file, "%d", &n);
     map = malloc(n * sizeof(int));
-    dist = malloc(n * n * sizeof(int));
+    dist = malloc(n * sizeof(int));
     for (int i = 0; i < n; i++) {
         map[i] = malloc(n * sizeof(int));
-        dist[i] = 0;
         for (int j = 0; j < n; j++) {
             fscanf(file, "%d", &map[i][j]);
         }
@@ -46,5 +68,5 @@ int main() {
     int start, finish;
 
     scanf("%d %d", &start, &finish);
-    printf("%d\n", find(start, finish, start, n));
+    printf("%d\n", find(start, finish, n));
 }
