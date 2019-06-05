@@ -30,18 +30,29 @@ int find(int start, int finish, int from, int n) {
 }
  */
 
+void print(int *dist, int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", dist[i]);
+    }
+    printf("\n");
+}
+
 int find(int start, int finish, int n) {
     int i, j;
     int *been = malloc(n * sizeof(int));
     for (j = 0; j < n; j++) {
         been[j] = 0;
         dist[j] = map[start][j];
+        if (map[start][j] == 0) {
+            dist[j] = INT_MAX;
+        }
     }
+    print(dist, n);
     been[start] = 1;
-
     for (i = 0; i < n; i++) {
+        print(dist, n);
         for (j = 0; j < n; j++) {
-            if (map[i][j] > 0 && !been[j]) {
+            if (map[i][j] > 0 && !been[j] && j != finish) {
                 if ((dist[i] + map[i][j]) < dist[j]) {
                     dist[j] = map[i][j];
                 }
@@ -49,6 +60,7 @@ int find(int start, int finish, int n) {
             been[j] = 1;
         }
     }
+    free(been);
     return dist[finish];
 }
 
@@ -69,4 +81,6 @@ int main() {
 
     scanf("%d %d", &start, &finish);
     printf("%d\n", find(start, finish, n));
+    free(map);
+    free(dist);
 }
