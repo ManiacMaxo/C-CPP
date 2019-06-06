@@ -21,14 +21,14 @@ int find(int start, int finish, int n, int map[n][n]) {  // using dijkstra pathf
     }
 
     for (int k = 1; k < n - 1; k++) {
-        for (j = 0; j < n; j++) {
+        for (j = 0; j < n; j++) {  // find shortest route to point j
             if (dist[next] + map[next][j] < dist[j] && been[j] == 0 && next != j) {
                 dist[j] = dist[next] + map[next][j];
             }
         }
 
         been[next] = 1;
-        for (i = 0; i < n; i++) {
+        for (i = 0; i < n; i++) {  // find next
             if (dist[i] != MAX_DIST && been[i] == 0 && i != finish) {
                 next = i;
                 break;
