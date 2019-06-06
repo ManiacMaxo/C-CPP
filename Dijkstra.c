@@ -1,20 +1,20 @@
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_DIST 999
 
 int find(int start, int finish, int n, int map[n][n]) {  // using dijkstra pathfinding algorithm
     int dist[n], been[n];
     int next;
     int i, j;
 
-    for (i = 0; i < n; i++) {  // distance from first point
-        been[i] = 0;
-        dist[i] = map[start][i];
+    for (i = 0; i < n; i++) {
+        been[i] = 0;              // blank slate
+        dist[i] = map[start][i];  // distance from first point
     }
     been[start] = 1;
 
     for (i = 0; i < n; i++) {  // find next point
-        if (dist[i] != -1 && dist[i] != INT_MAX) {
+        if (dist[i] != -1 && dist[i] != MAX_DIST) {
             next = i;
             break;
         }
@@ -29,7 +29,7 @@ int find(int start, int finish, int n, int map[n][n]) {  // using dijkstra pathf
 
         been[next] = 1;
         for (i = 0; i < n; i++) {
-            if (dist[i] != INT_MAX && been[i] == 0 && i != finish) {
+            if (dist[i] != MAX_DIST && been[i] == 0 && i != finish) {
                 next = i;
                 break;
             }
@@ -48,14 +48,14 @@ int main() {
         for (int j = 0; j < n; j++) {
             fscanf(file, "%d", &map[i][j]);
             if (map[i][j] == 0) {
-                map[i][j] = INT_MAX;
+                map[i][j] = MAX_DIST;  // easier to check if route is shorter
             }
         }
     }
     fclose(file);
-    int start, finish;
 
-    printf("Enter start and finish:");
+    int start, finish;
+    printf("Enter start and finish: ");
     scanf("%d %d", &start, &finish);
     printf("%d\n", find(start, finish, n, map));
 }
