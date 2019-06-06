@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int *dist;
 int **map;
 /* 
 int find(int start, int finish, int from, int n) {
@@ -38,29 +37,45 @@ void print(int *dist, int n) {
 }
 
 int find(int start, int finish, int n) {
-    int i, j;
-    int *been = malloc(n * sizeof(int));
-    for (j = 0; j < n; j++) {
+    int *dist = malloc(n * sizeof(int));
+    int *been = malloc(sizeof(dist));
+    int i, j, next;
+
+    for (j = 0; j < n; j++) {  // first point
         been[j] = 0;
         dist[j] = map[start][j];
         if (map[start][j] == 0) {
             dist[j] = INT_MAX;
         }
     }
-    print(dist, n);
     been[start] = 1;
+
+    for (i = 0; i < n; i++) {
+        if (dist[i] != -1 && dist[i] != INT_MAX) {
+            next = i;
+            break;
+        }
+    }
+
     for (i = 0; i < n; i++) {
         print(dist, n);
         for (j = 0; j < n; j++) {
             if (map[i][j] > 0 && !been[j] && j != finish) {
-                if ((dist[i] + map[i][j]) < dist[j]) {
+                if ((dist[next] + map[i][j]) < dist[j]) {
                     dist[j] = map[i][j];
                 }
             }
             been[j] = 1;
+            for (i = 0; i < n; i++) {
+                if (dist[i] != INT_MAX && !been[i] && i != finish) {
+                    next = i;
+                    break;
+                }
+            }
         }
     }
     free(been);
+    free(dist);
     return dist[finish];
 }
 
@@ -69,8 +84,8 @@ int main() {
     int n;
     fscanf(file, "%d", &n);
     map = malloc(n * sizeof(int));
-    dist = malloc(n * sizeof(int));
-    for (int i = 0; i < n; i++) {
+
+    for (int i = 0; i < n; i++) {  // set adj matrix
         map[i] = malloc(n * sizeof(int));
         for (int j = 0; j < n; j++) {
             fscanf(file, "%d", &map[i][j]);
@@ -82,5 +97,4 @@ int main() {
     scanf("%d %d", &start, &finish);
     printf("%d\n", find(start, finish, n));
     free(map);
-    free(dist);
 }
