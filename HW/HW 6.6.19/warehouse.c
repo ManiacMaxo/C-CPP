@@ -16,7 +16,7 @@ typedef struct {
 typedef struct {
     int num_comp;  // compartments
     int max;       // maximum products
-    product_t *compartments;
+    product_t *products;
 } warehouse_t;
 
 product_t *production(factory_t *factories) {
@@ -29,8 +29,8 @@ product_t *production(factory_t *factories) {
 }
 
 int product_available(warehouse_t wh, product_t product) {
-    for (int i = 0; i < sizeof(wh.compartments) / sizeof(product_t); i++) {
-        if (strcmp(product.name, wh.compartments[i].name) && product.quality == wh.compartments[i].quality) {
+    for (int i = 0; i < sizeof(wh.products) / sizeof(product_t); i++) {
+        if (strcmp(product.name, wh.products[i].name) && product.quality == wh.products[i].quality) {
             return i;  // where
         }
     }
@@ -39,7 +39,7 @@ int product_available(warehouse_t wh, product_t product) {
 
 int free_compartment(warehouse_t wh) {
     for (int i = 0; i < wh.num_comp; i++) {
-        if (wh.compartments[i].name[0] == '\0') {
+        if (wh.products[i].name[0] == '\0') {
             return i;
         }
     }
@@ -54,20 +54,20 @@ void add_products(product_t *products, warehouse_t wh) {
         where = product_available(wh, products[i]);
 
         if (where != -1) {
-            if (wh.compartments[where].quantity + products[i].quantity >= wh.max) {
-                products[i].quantity -= wh.max - wh.compartments[where].quantity;
-                wh.compartments[where].quantity = wh.max;
+            if (wh.products[where].quantity + products[i].quantity >= wh.max) {
+                products[i].quantity -= wh.max - wh.products[where].quantity;
+                wh.products[where].quantity = wh.max;
                 where = -1;
                 continue;
             } else {
-                wh.compartments[where].quantity += products[i].quantity;
+                wh.products[where].quantity += products[i].quantity;
             }
         }
 
         if (where == -1) {
             comp = free_compartment(wh);
             if (comp != -1) {
-                wh.compartments[comp] = products[i];
+                wh.products[comp] = products[i];
             } else {
                 printf("no free place to load product\n");
             }
@@ -78,15 +78,15 @@ void add_products(product_t *products, warehouse_t wh) {
 int main(int argc, char **argv) {
     int F = atoi(argv[1]);  // num factories
     int W = atoi(argv[2]);  // max size of wh
-    int S = atoi(argv[3]);  // compartments in wh
+    int S = atoi(argv[3]);  // products in wh
     int I = atoi(argv[4]);  // num itterations
 
-    product_t *products = malloc(sizeof(product_t) * 2);
+    product_t *products = malloc(2 * sizeof(product_t));
     factory_t *factories = malloc(F * sizeof(factory_t));
     warehouse_t wh = {
         .max = W,
         .num_comp = S,
-        .compartments = malloc(sizeof(product_t) * W),
+        .products = malloc(sizeof(product_t) * W),
     };
 
     for (int i = 0; i < I; i++) {
