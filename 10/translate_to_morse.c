@@ -65,6 +65,7 @@ char *toMorse(char *text) {
     return morseText;
 }
 
+/*
 char *fromMorse(char *morseText) {
     int slen = strlen(morseText);
     char *text = malloc(sizeof(char) * strlen(morseText) / 4);
@@ -81,6 +82,7 @@ char *fromMorse(char *morseText) {
         }
     }
 }
+*/
 
 void fWrite(char *filename, char *morse) {
     FILE *file;
