@@ -41,7 +41,7 @@ int fileAppend(char* fName) {
     FILE* file;
     char s[100];
     int isFirst;
-    file = fopen(fName, "r+");
+    file = fopen(fName, "a");
     if (file) {
         while (!feof(file)) {
             fgets(s, 100, file);

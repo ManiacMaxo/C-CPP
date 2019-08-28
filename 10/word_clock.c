@@ -6,13 +6,13 @@ int main() {
     struct tm *timeinfo;
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-    const char *hours[] = {"Twelve", "One",  "Two", "Three",
-                           "Four",   "Five", "Six", "Seven",
-                           "Eight",  "Nine", "Ten", "Eleven"};
-    const char *mins[] = {"O'clock",      "Five past",     "Ten past",
-                          "Fifteen past", "Twenty past",   "Twentyfive past",
-                          "Half past",    "Twentyfive to", "Twenty to",
-                          "Fifteen to",   "Ten to",        "Five to"};
+    const char *hours[] = {"Twelve", "One", "Two", "Three",
+                           "Four", "Five", "Six", "Seven",
+                           "Eight", "Nine", "Ten", "Eleven"};
+    const char *mins[] = {"O'clock", "Five past", "Ten past",
+                          "Fifteen past", "Twenty past", "Twentyfive past",
+                          "Half past", "Twentyfive to", "Twenty to",
+                          "Fifteen to", "Ten to", "Five to"};
     const char *ampm[] = {"AM", "PM"};
 
     if ((int)timeinfo->tm_min / 5 == 0) {
