@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-int fileRead(char* book) {
-    FILE* file = fopen(book, "r");
+int read(char* book) {
+    FILE* fp = fopen(book, "r");
     char s[30];
-    if (file) {
-        while (!feof(file)) {
-            fscanf(file, "s", s);
+    if (fp) {
+        while (!feof(fp)) {
+            fscanf(fp, "s", s);
         }
-        fclose(file);
+        fclose(fp);
         return 1;
     }
     return 0;
@@ -17,19 +17,25 @@ int fileRead(char* book) {
 
 int check(char* verbs, char* word) {
     FILE* f = fopen(verbs, "r");
+    char s[30];
     if (f) {
         while (!EOF) {
+            fscanf(f, "s", s);
+            if (strstr(word, s)) {
+                return 1;
+            }
         }
     }
+    return 0;
 }
 
-int fileWrite(char* ans, char* word) {
-    FILE* file;
-    file = fopen(ans, "w");
-    if (file) {
-        fprintf(file, word);
+int append(char* ans, char* word) {
+    FILE* fp;
+    fp = fopen(ans, "a");
+    if (fp) {
+        fprintf(fp, word);
     }
-    fclose(file);
+    fclose(fp);
 }
 
 int main() {
