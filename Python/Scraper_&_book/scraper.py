@@ -1,6 +1,7 @@
 import urllib2
-from bs4 import BeautifulSoup
 import requests
+import urlparse
+from bs4 import BeautifulSoup
 
 const_url = 'https://www.italian-verbs.com/italian-verbs/conjugation.php'
 conjugations = dict()
@@ -15,14 +16,14 @@ def conj(url, prev, word):
             break
         conjugations[word].append(row.get_text())
     print conjugations
- """
+"""
 
 
 def check(word):
     with open('verb.txt', 'r') as f:
         if word in f.read():
-            return true
-        return false
+            return 1
+        return 0
 
 
 def read_book():
@@ -37,7 +38,7 @@ def read_book():
 
 def scrape(url, prev):
     f = open("verbs.txt", "a+")
-    dom = BeautifulSoup(urllib2.urlopen(url), 'html.parser')
+    dom = BeautifulSoup(requests.get(url), 'html.parser')
     divs = dom.find_all(attrs={'class': 'col span_1_of_2'})
     for div in divs:
         for a in div.find_all('a'):
@@ -47,15 +48,16 @@ def scrape(url, prev):
                 f.write('\n')
                 break
             if prev == 'z' and word[0] == 'a':
-                print finished
+                print ('finished')
                 exit()
             f.write(word + ' ')
     pag = dom.find_all(id='pag')
     for p in pag:
         if p.get_text() == 'Pagina successiva':
-            new_url = url + p.find('a')['href']
+            new_url = urlparse.urljoin(url, p.find('a')['href'])
+            print new_url + '\n'
             scrape(new_url, prev)
     f.close()
 
 
-scrape(const_url, '\0')
+scrape(const_url, 'a')
