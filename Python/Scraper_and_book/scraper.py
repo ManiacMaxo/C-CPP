@@ -10,7 +10,7 @@ def check(word):
     with open('verbs.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
-            if re.search(r'some_pattern', line):
+            if word in line and not word in ans.txt:
                 words = line.split()
                 with open('ans.txt', 'a') as ans:
                     for i in range(6):
@@ -54,8 +54,10 @@ def get_verb_conj(url, prev_url):
 def scrape(url, prev_c, prev_w):
 
     if 'zoomare' in url:  # exit condition
-        print 'fin'
+        print 'fin, starting book'
+        print time.time() - start_time, 'seconds have passed\n'
         read_book()
+        print time.time() - start_time, 'seconds have passed and program is complete'
         exit()
 
     response = requests.get(url)
@@ -63,6 +65,7 @@ def scrape(url, prev_c, prev_w):
         print 'failed with status code ' + response.status_code + '\n'
         time.sleep(2)  # wait 2 seconds
         response = requests.get(url)
+
     html = response.text
     clean = BeautifulSoup(html, 'html.parser')
     verbs = clean.find_all(attrs={'class': 'col span_1_of_2'})
@@ -94,9 +97,12 @@ def scrape(url, prev_c, prev_w):
     pag = clean.find(id='pag', attrs={})
     for p in pag:
         if p.get_text() == 'Pagina successiva':
-            new_url = urlparse.urljoin(url, p.find('a')['href'])
-            print new_url
+            temp = p.find('a')['href']
+            break
+    new_url = urlparse.urljoin(url, temp)
+    time.sleep(5)
     scrape(new_url, prev_c, prev_w)
 
 
+start_time = time.time()
 scrape(m_url, 'a', '')
