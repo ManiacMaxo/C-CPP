@@ -51,7 +51,7 @@ def get_verb_conj(url, prev_url):
     return conjunctions
 
 
-def scrape(url, prev_c):
+def scrape(url, prev_c, prev_w):
 
     if 'zoomare' in url:  # exit condition
         print 'fin'
@@ -69,12 +69,15 @@ def scrape(url, prev_c):
 
     first = True
     for verb in verbs:
-        if first:  # skip first word in table
-            first = False
-            continue
-
         for a in verb.find_all('a'):  # find all a tags on page
+            if first:  # skip first word in table
+                first = False
+                continue
             verb = a.get_text().strip()
+            if verb == prev_w:
+                continue
+            else:
+                prev_w = verb
             temp = '?lemma=' + verb.upper() + '100'
             v_url = urlparse.urljoin(m_url, temp)  # create sub link
             # error hangling if no conjugate verbs
@@ -88,9 +91,12 @@ def scrape(url, prev_c):
             else:
                 print 'No conjugations for ', verb
 
-    pag = clean.find(id='pag', name='Pagina successiva')['href']  # next page
-    new_url = urlparse.urljoin(url, pag)
-    scrape(new_url, prev_c)
+    pag = clean.find(id='pag', attrs={})
+    for p in pag:
+        if p.get_text() == 'Pagina successiva':
+            new_url = urlparse.urljoin(url, p.find('a')['href'])
+            print new_url
+    scrape(new_url, prev_c, prev_w)
 
 
-scrape(m_url, 'a')
+scrape(m_url, 'a', '')
