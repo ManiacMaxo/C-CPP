@@ -46,7 +46,7 @@ def scrape(url, prev_c):
             verb = a.get_text().strip()
             temp = '?lemma=' + verb.upper() + '100'
             v_url = urlparse.urljoin(m_url, temp)
-            with open('book.txt', 'a') as f:
+            with open('verb.txt', 'a') as f:
                 f.write(get_verb_conj(v_url, url))
                 print verb
 
