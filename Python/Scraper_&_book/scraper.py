@@ -41,13 +41,14 @@ def scrape(url, prev_c):
     for verb in verbs:
         if prev_c == 'z' and verb[0] == 'a':
             print 'fin'
+            break
         for a in verb.find_all('a'):
             verb = a.get_text().strip()
             temp = '?lemma=' + verb.upper() + '100'
             v_url = urlparse.urljoin(m_url, temp)
-            print verb
-            print get_verb_conj(v_url, url)
-            break
+            with open('book.txt', 'a') as f:
+                f.write(get_verb_conj(v_url, url))
+                print verb
 
 
 scrape(m_url, 'a')
