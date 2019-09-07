@@ -16,11 +16,15 @@ def get_verb_conj(url, prev_url):
     html = response.text
     clean = BeautifulSoup(html, 'html.parser')
     conj = clean.find_all(attrs={'class': 'col span_1_of_2'})
-    for verb in conj.find_all('a'):
-        verb = verb.get_text().strip()
-        if verb[0].isupper():
+
+    conjunctions = []
+    for a in conj.find_all('a'):
+        verb = a.get_text().strip()
+        if verb[0].isupper():  # check first character
             continue
-        
+        n_verb = verb.split()
+        conjunctions.append(n_verb[-1])  # takes only the last word
+    return conjunctions
 
 
 def scrape(url, prev_c):
@@ -40,8 +44,8 @@ def scrape(url, prev_c):
             verb = a.get_text().strip()
             temp = '?lemma=' + verb.upper() + '100'
             v_url = urlparse.urljoin(m_url, temp)
-            get_verb_conj(v_url, url)
             print verb
+            print get_verb_conj(v_url, url)
 
 
 scrape(m_url, 'a')
