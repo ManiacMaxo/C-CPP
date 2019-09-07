@@ -94,7 +94,8 @@ def scrape(url, prev_c, prev_w):
             else:
                 print 'No conjugations for ', verb
 
-    pag = clean.find(id='pag', attrs={})
+    pag = clean.find('Pagina seccuessiva')
+    temp =pag.find('a')['href']
     for p in pag:
         if p.get_text() == 'Pagina successiva':
             temp = p.find('a')['href']
