@@ -2,15 +2,27 @@ import requests
 import time
 import urlparse
 import string
+import re
 from bs4 import BeautifulSoup
 
 
+def check(word):
+    with open('verbs.txt', 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            if re.search(r'some_pattern', line):
+                words = line.split()
+                with open('ans.txt', 'a') as ans:
+                    for i in range(6):
+                        ans.write(words[i] + ' ')
+                    print >> ans
+
+
 def read_book():
-    with open('book.txt', 'r') as f:
-        for line in f:
+    with open('book.txt', 'r') as b:
+        for line in b:
             for word in line.split():
-                if word:
-                    print 'yes'
+                check(word)
 
 
 m_url = 'https://www.italian-verbs.com/italian-verbs/conjugation.php'  # master url
@@ -40,6 +52,12 @@ def get_verb_conj(url, prev_url):
 
 
 def scrape(url, prev_c):
+
+    if 'zoomare' in url:  # exit condition
+        print 'fin'
+        read_book()
+        exit()
+
     response = requests.get(url)
     while(response.status_code != 200):  # repeat until correct status code
         print 'failed with status code ' + response.status_code + '\n'
@@ -49,24 +67,30 @@ def scrape(url, prev_c):
     clean = BeautifulSoup(html, 'html.parser')
     verbs = clean.find_all(attrs={'class': 'col span_1_of_2'})
 
+    first = True
     for verb in verbs:
-        if prev_c == 'z' and verb[0] == 'a':
-            print 'fin'
-            break
-        for a in verb.find_all('a'):
+        if first:  # skip first word in table
+            first = False
+            continue
+
+        for a in verb.find_all('a'):  # find all a tags on page
             verb = a.get_text().strip()
             temp = '?lemma=' + verb.upper() + '100'
-            v_url = urlparse.urljoin(m_url, temp)
-            with open('verb.txt', 'a') as f:
-                # error hangling if no conjugate verbs
-                conjugated_verbs = get_verb_conj(v_url, url)
-                if conjugated_verbs:
-                    print verb
+            v_url = urlparse.urljoin(m_url, temp)  # create sub link
+            # error hangling if no conjugate verbs
+            conjugated_verbs = get_verb_conj(v_url, url)
+            if conjugated_verbs:
+                print verb
+                with open('verb.txt', 'a') as f:
                     for word in conjugated_verbs:
-                        f.write(word)
-                    f.write('\n')
-                else:
-                    print 'No conjugations for ', verb
+                        f.write('%s ' % word)
+                    print >> f
+            else:
+                print 'No conjugations for ', verb
+
+    pag = clean.find(id='pag', name='Pagina successiva')['href']  # next page
+    new_url = urlparse.urljoin(url, pag)
+    scrape(new_url, prev_c)
 
 
 scrape(m_url, 'a')
