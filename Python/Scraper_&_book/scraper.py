@@ -15,15 +15,16 @@ def get_verb_conj(url, prev_url):
         response = requests.get(url)
     html = response.text
     clean = BeautifulSoup(html, 'html.parser')
-    conj = clean.find_all(attrs={'class': 'col span_1_of_2'})
+    table = clean.find_all(attrs={'class': 'col span_1_of_2'})
 
     conjunctions = []
-    for a in conj.find_all('a'):
-        verb = a.get_text().strip()
-        if verb[0].isupper():  # check first character
-            continue
-        n_verb = verb.split()
-        conjunctions.append(n_verb[-1])  # takes only the last word
+    for row in table:
+        for a in row.find_all('td'):
+            verb = a.get_text().strip()
+            if verb[0].isupper():  # check first character
+                continue
+            n_verb = verb.split()
+            conjunctions.append(n_verb[-1])  # takes only the last word
     return conjunctions
 
 
@@ -46,6 +47,7 @@ def scrape(url, prev_c):
             v_url = urlparse.urljoin(m_url, temp)
             print verb
             print get_verb_conj(v_url, url)
+            break
 
 
 scrape(m_url, 'a')
