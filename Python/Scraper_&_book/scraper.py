@@ -21,7 +21,7 @@ def get_verb_conj(url, prev_url):
     for row in table:
         for a in row.find_all('td'):
             verb = a.get_text().strip()
-            if verb[0].isupper():  # check first character
+            if verb[0].isupper() or verb.isalpha() == 0:  # check first character
                 continue
             n_verb = verb.split()
             conjunctions.append(n_verb[-1])  # takes only the last word
@@ -47,7 +47,9 @@ def scrape(url, prev_c):
             temp = '?lemma=' + verb.upper() + '100'
             v_url = urlparse.urljoin(m_url, temp)
             with open('verb.txt', 'a') as f:
-                f.write(get_verb_conj(v_url, url))
+                for verb in get_verb_conj(v_url, url):
+                    f.write('%s ' % verb)
+                f.write('\n')
                 print verb
 
 
