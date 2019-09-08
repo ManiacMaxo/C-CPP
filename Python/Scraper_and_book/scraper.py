@@ -11,7 +11,7 @@ def check(word):
         lines = f.readlines()
         for line in lines:
             with open('ans.txt', 'a') as ans:
-                if word in line and not word in ans.txt:
+                if word in line and not line.split()[0] in ans.txt:
                     words = line.split()
                     for i in range(6):
                         ans.write(words[i] + ' ')
@@ -43,11 +43,12 @@ def get_verb_conj(url, prev_url):
     conjunctions = []
     for row in table:
         for a in row.find_all('td'):
-            verb = a.get_text().strip()
-            if verb[0].isupper() or verb.isalpha() == 0:  # check first character
+            verb = a.get_text().encode('utf-8').strip()
+            temp = verb.split()
+            verb = temp[-1]
+            if verb[0].isupper() or re.search(r'\d', verb) == 0:  # check validity
                 continue
-            n_verb = verb.split()
-            conjunctions.append(n_verb[-1])  # takes only the last word
+            conjunctions.append(verb)  # takes only the last word
     return conjunctions
 
 
@@ -55,9 +56,7 @@ def scrape(url, prev_c, prev_w):
 
     if 'zoomare' in url:  # exit condition
         print 'fin, starting book'
-        print time.time() - start_time, 'seconds have passed\n'
         read_book()
-        print time.time() - start_time, 'seconds have passed and program is complete'
         exit()
 
     response = requests.get(url)
@@ -103,5 +102,5 @@ def scrape(url, prev_c, prev_w):
     scrape(new_url, prev_c, prev_w)
 
 
-start_time = time.time()
-scrape(m_url, 'a', '')
+read_book()
+#scrape(m_url, 'a', '')
