@@ -1,4 +1,5 @@
 import re
+import time
 
 
 def read_book():
@@ -16,7 +17,10 @@ def check(word):
                 if word in line and not line.split()[0] in ans:
                     words = line.split()
                     for i in range(6):
+                        print words[i]
                         ans.write(words[i] + ' ')
+                    print 'next word'
+                    time.sleep(1)
                     print >> ans
 
 
