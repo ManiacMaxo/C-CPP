@@ -10,9 +10,9 @@ def check(word):
     with open('verbs.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
-            if word in line and not word in ans.txt:
-                words = line.split()
-                with open('ans.txt', 'a') as ans:
+            with open('ans.txt', 'a') as ans:
+                if word in line and not word in ans.txt:
+                    words = line.split()
                     for i in range(6):
                         ans.write(words[i] + ' ')
                     print >> ans
@@ -94,12 +94,10 @@ def scrape(url, prev_c, prev_w):
             else:
                 print 'No conjugations for ', verb
 
-    pag = clean.find('Pagina seccuessiva')
-    temp =pag.find('a')['href']
+    pag = clean.find_all(id='pag')  # find next page
     for p in pag:
         if p.get_text() == 'Pagina successiva':
             temp = p.find('a')['href']
-            break
     new_url = urlparse.urljoin(url, temp)
     time.sleep(5)
     scrape(new_url, prev_c, prev_w)
