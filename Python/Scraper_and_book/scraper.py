@@ -66,7 +66,7 @@ def scrape(url, prev_w):
             conjugated_verbs = get_verb_conj(v_url, url)
             if conjugated_verbs:
                 print verb
-                with open('verb.txt', 'a') as f:
+                with open('verbs.txt', 'a') as f:
                     for word in conjugated_verbs:
                         f.write('%s ' % word)
                     print >> f
