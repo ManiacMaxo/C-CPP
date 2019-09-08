@@ -6,25 +6,6 @@ import re
 from bs4 import BeautifulSoup
 
 
-def check(word):
-    with open('verbs.txt', 'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            with open('ans.txt', 'a') as ans:
-                if word in line and not line.split()[0] in ans.txt:
-                    words = line.split()
-                    for i in range(6):
-                        ans.write(words[i] + ' ')
-                    print >> ans
-
-
-def read_book():
-    with open('book.txt', 'r') as b:
-        for line in b:
-            for word in line.split():
-                check(word)
-
-
 m_url = 'https://www.italian-verbs.com/italian-verbs/conjugation.php'  # master url
 
 
@@ -52,11 +33,10 @@ def get_verb_conj(url, prev_url):
     return conjunctions
 
 
-def scrape(url, prev_c, prev_w):
+def scrape(url, prev_w):
 
-    if 'zoomare' in url:  # exit condition
-        print 'fin, starting book'
-        read_book()
+    if 'zoomare' in url:  # exit condition, didn't work
+        print 'fin'
         exit()
 
     response = requests.get(url)
@@ -99,8 +79,7 @@ def scrape(url, prev_c, prev_w):
             temp = p.find('a')['href']
     new_url = urlparse.urljoin(url, temp)
     time.sleep(5)
-    scrape(new_url, prev_c, prev_w)
+    scrape(new_url, prev_w)
 
 
-read_book()
 #scrape(m_url, 'a', '')
