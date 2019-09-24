@@ -12,7 +12,7 @@ m_url = 'https://www.italian-verbs.com/italian-verbs/conjugation.php'  # master 
 def get_verb_conj(url, prev_url):
     response = requests.get(url)
     while(response.status_code != 200):  # repeat until correct status code
-        print 'failed with status code ' + response.status_code + '\n'
+        print('failed with status code ', response.status_code, '\n')
         if response.status_code == 404:
             return  # bail out if page not found
         time.sleep(2)  # wait 2 seconds
@@ -36,12 +36,12 @@ def get_verb_conj(url, prev_url):
 def scrape(url, prev_w):
 
     if 'zoomare' in url:  # exit condition, didn't work
-        print 'fin'
+        print('fin')
         exit()
 
     response = requests.get(url)
     while(response.status_code != 200):  # repeat until correct status code
-        print 'failed with status code ' + response.status_code + '\n'
+        print('failed with status code ', response.status_code, '\n')
         time.sleep(2)  # wait 2 seconds
         response = requests.get(url)
 
@@ -65,13 +65,13 @@ def scrape(url, prev_w):
             # error hangling if no conjugate verbs
             conjugated_verbs = get_verb_conj(v_url, url)
             if conjugated_verbs:
-                print verb
+                print(verb)
                 with open('verbs.txt', 'a') as f:
                     for word in conjugated_verbs:
                         f.write('%s ' % word)
                     print >> f
             else:
-                print 'No conjugations for ', verb
+                print('No conjugations for ', verb)
 
     pag = clean.find_all(id='pag')  # find next page
     for p in pag:
