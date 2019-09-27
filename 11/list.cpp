@@ -15,12 +15,13 @@ class List {
     List() {
         head = NULL;
     }
-    /* void init() {
-        head = NULL;
-    } */
+    int is_empty() {
+        return head == NULL;
+    }
 };
 
 int main() {
     List l1;
+    cout << l1.is_empty() << endl;
     return 0;
 }
