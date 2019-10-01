@@ -1,5 +1,5 @@
 def main():
-    register = {
+    register = { # randomly genetated names
         1: 'Amiens',
         2: 'Cate',
         3: 'John',
