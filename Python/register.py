@@ -15,7 +15,6 @@ def main():
         num = int(input('Enter Student Number: '))
         if(num > 0 and num < 11):
             break
-
     print(register[num])
 
 
