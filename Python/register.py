@@ -1,5 +1,5 @@
 def main():
-    register = { # randomly genetated names
+    register = {  # randomly genetated names
         1: 'Amiens',
         2: 'Cate',
         3: 'John',
@@ -15,6 +15,7 @@ def main():
         num = int(input('Enter Student Number: '))
         if(num > 0 and num < 11):
             break
+        print('Number out of range!')
     print(register[num])
 
 
