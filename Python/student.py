@@ -36,6 +36,8 @@ def main():
                 'History', 'Chemistry', 'Biology', 'Physics']  # base subjects
     for subject in subjects:
         student.add_subject(subject)
+    student.add_subject('Russian')
+    student.add_grade(4, 'Russian')
     print(student.grades)
 
 
