@@ -1,4 +1,4 @@
-checkio = lambda numbers_array: sorted(numbers_array, key=abs)
+def checkio(numbers_array): return sorted(numbers_array, key=abs)
 
 
 def test_function():
@@ -16,6 +16,7 @@ def test_function():
     assert check_it(checkio(
         (-1, -2, -3, 0)
     )) == [0, -1, -2, -3], "Negative numbers"
+
 
 if __name__ == '__main__':
     test_function()
