@@ -1,2 +1,2 @@
-# Code
-Made for school projects and simple side stuff
+# C and C++
+Made for school projects
