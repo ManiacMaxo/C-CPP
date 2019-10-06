@@ -4,7 +4,7 @@
 // NUMBER: 8
 // PROBLEM: #6
 // FILE NAME: stack.c (unix file name)
-// FILE PURPOSE: creating strcat without use of library
+// FILE PURPOSE: creating stack
 // ------------------------------------------------------------------------
 
 #include <stdio.h>
@@ -24,36 +24,8 @@ void stack_init(stack *s) {
     // stack
     //------------------------------------------------------------------------
     s->size = 0;
-    s->capacity = 10;
+    s->capacity = 50;
     s->elements = malloc(s->capacity * sizeof(int));
-}
-
-void stack_push(stack *s, int num) {
-    //------------------------------------------------------------------------
-    // FUNCTION: stack_push
-    // append a new element to the top of the stack
-    // PARAMETERS:
-    // stack and element to append
-    //------------------------------------------------------------------------
-    /*
-    if (s->size == s->capacity) {
-        s->capacity *= 2;
-        s->elements = realloc(s->elements, s->capacity * sizeof(int));
-    } */
-    s->elements[s->size] = num;
-    s->size++;
-}
-
-int stack_pop(stack *s) {
-    //------------------------------------------------------------------------
-    // FUNCTION: stack_pop
-    // remove and return top element
-    // PARAMETERS:
-    // stack to remove element from
-    //------------------------------------------------------------------------
-    int temp = s->elements[--s->size];
-    s->elements[s->size] = 0;
-    return temp;
 }
 
 void stack_destroy(stack *s) {
@@ -66,10 +38,27 @@ void stack_destroy(stack *s) {
     s->size = 0;
     s->capacity = 0;
     free(s->elements);
-    s->elements = NULL;
 }
 
-void stack_top(stack *s) {
+int stack_empty(stack *s) {
+    return !s->size;
+}
+
+void stack_push(stack *s, int num) {
+    //------------------------------------------------------------------------
+    // FUNCTION: stack_push
+    // append a new element to the top of the stack
+    // PARAMETERS:
+    // stack and element to append
+    //------------------------------------------------------------------------
+    if (s->size == s->capacity) {
+        s->capacity *= 2;
+        s->elements = realloc(s->elements, s->capacity * sizeof(int));
+    }
+    s->elements[s->size++] = num;
+}
+
+int stack_top(stack *s) {
     //------------------------------------------------------------------------
     // FUNCTION: stack_top
     // return the top element of the stack
@@ -77,16 +66,29 @@ void stack_top(stack *s) {
     // stack
     //------------------------------------------------------------------------
     if (s->size) {
-        return s->elements[s->size];
+        return s->elements[s->size - 1];
     }
     return 0;
 }
 
+int stack_pop(stack *s) {
+    //------------------------------------------------------------------------
+    // FUNCTION: stack_pop
+    // remove and return top element
+    // PARAMETERS:
+    // stack to remove element from
+    //------------------------------------------------------------------------
+    return s->elements[--s->size];
+}
+
 int main() {
     stack s;
+    stack_init(&s);
+    stack_push(&s, 1);
+    stack_push(&s, 3);
     stack_push(&s, 5);
-    printf("%d\n", s.size);
-    printf("%d\n", stack_pop(&s));
-    printf("%d\n", s.elements[0]);
+    printf("%zu\t%d\n", s.size, stack_pop(&s));
+    printf("%zu\t%d\n", s.size, stack_pop(&s));
+    printf("%zu\t%d\n", s.size, stack_pop(&s));
     stack_destroy(&s);
 }
