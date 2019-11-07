@@ -45,21 +45,19 @@ Rectangle operator+(const Rectangle rect, int num) {
     return n_rect;
 }
 
-Rectangle operator+(Rectangle r1, Rectangle r2) {  // needs error checking
-    Rectangle n_rect(r1.getX(), r1.getY(), r1.getWidth() + r2.getWidth(), r1.getHeight() + r2.getHeight());
-    return n_rect;
-}
+// Rectangle operator+(Rectangle r1, Rectangle r2) {  // needs error checking
+//     Rectangle n_rect(r1.getX(), r1.getY(), r1.getWidth() + r2.getWidth(), r1.getHeight() + r2.getHeight());
+//     return n_rect;
+// }
 
-Rectangle operator+=(Rectangle rect, int num) {
+void operator+=(Rectangle rect, int num) {
     rect.setWidth(rect.getWidth() + num);
     rect.setHeight(rect.getHeight() + num);
-    return rect;
 }
 
-Rectangle operator+=(Rectangle r1, Rectangle r2) {
+void operator+=(Rectangle r1, const Rectangle r2) {
     r1.setWidth(r1.getWidth() + r2.getWidth());
     r1.setHeight(r1.getHeight() + r2.getHeight());
-    return r1;
 }
 
 Rectangle operator++(Rectangle rect) {
