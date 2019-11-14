@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#define BUFSIZE 10
+#define BUFSIZE 1024
 
 int main() {
     int fd = open("a.txt", O_RDONLY);
@@ -23,12 +23,18 @@ int main() {
             return 1;
         } else if (buf[strlen(buf) - 1] == '\n') {
             count++;
+            write(STDOUT_FILENO, buf, strlen(buf));
+        } else if (read_value != 0) {
+            // printf("%s\n", buf);
+            write(STDOUT_FILENO, buf, strlen(buf));
         }
-        write(STDOUT_FILENO, buf, 1);
         if (count == 10) {
-            write(STDOUT_FILENO, "\n", 1);
-            return 1;
+            break;
         }
     } while (read_value != 0);
-    return 0;
+
+    close(fd);
+    // write(STDOUT_FILENO, "\n", 1);
+
+    return 1;
 }
