@@ -3,48 +3,52 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#define BUFSIZE 1024
+#define BUFSIZE 10000
+#define LINES 10
 
 int main(int argc, char **argv) {
-    printf("%s\n", argv[2]);
     for (int i = 1; i < argc; i++) {
-        printf("i = %d\n", i);
-        char *fName = argv[i];
+        char fName[100];
+        strcpy(fName, argv[i]);
         int fd = open(fName, O_RDONLY);
-        // header
-        strcat(fName, " <==\n");
-        write(STDOUT_FILENO, "==> ", 4);
-        write(STDOUT_FILENO, fName, strlen(fName));
         if (fd == -1) {
-            perror("open file");
-            continue;
+            perror("open a.txt");
+            return 1;
         }
 
-        char buf[BUFSIZE];
+        if (argc > 2) {
+            strcpy(fName, (i > 1) ? "\n==> " : "==> ");
+            strcat(strcat(fName, argv[i]), " <==\n");
+            write(STDOUT_FILENO, fName, strlen(fName));
+        }
+
+        char buf[BUFSIZE], ch;
         ssize_t read_value;
-        int count = 0;
+        int cnt = 0, idx = 0;
 
         do {
-            char ch = '\0';
             read_value = read(fd, &ch, 1);
-            printf("%c", ch);
             if (read_value == -1) {
-                perror("read file");
-                break;
-            } else if (ch == '\n') {  // end conditions
-                count++;
-                buf[strlen(buf) - 1] = ch;
-                buf[strlen(buf) - 1] = '\0';
-                write(STDOUT_FILENO, buf, strlen(buf));
-                // printf("lines: %d\n", count);
-            } else {
-                buf[strlen(buf) - 1] = ch;
+                perror("read");
+                return 1;
+            } else if (read_value == 0) {  // end of file with no new line
+                ch = '\n';                 // just set a new line. the loop will break due to read_value == 0
             }
-            if (count == 10) {  // number of lines
-                write(STDOUT_FILENO, "\n", 1);
-                break;
+
+            buf[idx++] = ch;
+            if (ch == '\n') {
+                write(STDOUT_FILENO, buf, idx);
+                idx = 0;
+                if (++cnt == LINES) {
+                    break;
+                }
+            } else if (idx == BUFSIZE) {
+                write(STDOUT_FILENO, buf, idx);
+                idx = 0;
             }
         } while (read_value != 0);
+
+        close(fd);
     }
     return 0;
 }
