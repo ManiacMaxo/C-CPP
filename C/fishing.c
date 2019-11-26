@@ -39,7 +39,7 @@ int main(int argc, char *argv[2]) {
     int segment, type;
     for (int i = 0; i < t_bait; i++) {
         float chance = (rand() % 11) / 10;
-        fish4fish(segment, chance, type);
+        // fish4fish(segment, chance, type);
     }
     return 0;
 }
