@@ -3,4 +3,5 @@ a.out
 .bin
 in.txt
 .DS_Store
-.swp
+.*.swp
+.*.swo
