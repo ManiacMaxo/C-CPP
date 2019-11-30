@@ -4,5 +4,5 @@ a.out
 .DS_Store
 .*.swp
 .*.swo
-.zip
-.txt
+*.zip
+*.txt
