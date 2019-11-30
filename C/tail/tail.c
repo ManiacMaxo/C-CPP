@@ -13,67 +13,43 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#define BUFSIZE 10000
 
 int find_start(int fd) {
-    char ch = 0;
-    int pos = lseek(fd, -1, SEEK_END);
-    ssize_t r_value = read(fd, &ch, 1);
-    if (r_value == -1) {
-        perror("read");
-    }
-
-    for (int i = 0; i < 10; i++) {
-        ch = 0;
-        while (ch != '\n') {
-            read(fd, &ch, 1);
-            lseek(fd, pos--, SEEK_SET);
+    char ch;
+    int i = 0;
+    int pos = lseek(fd, -2, SEEK_END);
+    do {
+        if (read(fd, &ch, 1) == -1) {
+            perror("read");
         }
-    }
-    return pos + 1;
+        if (ch == '\n') {
+            i++;
+        }
+        if (lseek(fd, --pos, SEEK_SET) == -1) {
+            perror("seek");
+        }
+    } while (i < 10);
+    return pos + 2;
 }
 
 void tail(int fd) {
-    char buf[BUFSIZE], ch;
-    ssize_t r_value, w_value;
-    int idx = 0, pos = find_start(fd);
-    lseek(fd, pos, SEEK_SET);
-    printf("pos = %d\n", pos);
+    char ch;
+    lseek(fd, find_start(fd), SEEK_SET);
 
-    do {
-        r_value = read(fd, &ch, 1);
-        if (r_value == -1) {
-            perror("read");
-            break;
-        } else if (r_value == 0) {
-            ch = '\n';
-            break;
+    while (read(fd, &ch, 1) > 0) {
+        if (write(STDOUT_FILENO, &ch, 1) == -1) {
+            perror("write");
         }
-
-        buf[idx++] = ch;
-        if (ch == '\n') {
-            w_value = write(STDOUT_FILENO, buf, idx);
-            if (w_value == -1) {
-                perror("write");
-            }
-            idx = 0;
-        } else if (idx == BUFSIZE) {
-            w_value = write(STDOUT_FILENO, buf, idx);
-            if (w_value == -1) {
-                perror("write");
-            }
-            idx = 0;
-        }
-    } while (42);
+    }
+    if (ch != '\n')
+        if (write(STDOUT_FILENO, "\n", 1) == -1)
+            perror("write");
 }
 
-void print_header(const char *fName, int i) {
-    char header[200];
-    strcat(header, ((i > 1) ? "\n==> " : "==> "));
-    strcat(strcat(header, fName), " <==\n");
-
-    ssize_t w_value = write(STDOUT_FILENO, header, strlen(header));
-    if (w_value == -1) {
+void print_header(const char *fName) {
+    char header[255];
+    sprintf(header, "==> %s <==\n", fName);
+    if (write(STDOUT_FILENO, header, strlen(header)) == -1) {
         perror("write header");
     }
 }
@@ -82,7 +58,9 @@ int main(int argc, char **argv) {
     for (int i = 1; i < argc; i++) {
         char *fName = argv[i];
         if (argc > 2) {
-            print_header(fName, i);
+            if (i > 1)
+                write(STDOUT_FILENO, "\n", 1);
+            print_header(fName);
         }
         int fd = open(fName, O_RDONLY);
         if (fd == -1) {
