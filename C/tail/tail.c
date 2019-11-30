@@ -1,11 +1,11 @@
-//------------------------------------------------------------------------
-// NAME: Victor Gorchilov
-// CLASS: 11a
-// NUMBER: 8
-// FILE NAME: tail.c (unix file name)
-// FILE PURPOSE:
-// implementation of tail function in c
-//------------------------------------------------------------------------
+/* ------------------------------------------------------------------------
+NAME: Victor Gorchilov
+CLASS: 11a
+NUMBER: 8
+FILE NAME: tail.c (unix file name)
+FILE PURPOSE:
+implementation of tail function in c
+------------------------------------------------------------------------ */
 
 #include <fcntl.h>
 #include <stdio.h>
@@ -58,10 +58,16 @@ int main(int argc, char **argv) {
     for (int i = 1; i < argc; i++) {
         char *fName = argv[i];
         if (argc > 2) {
-            if (i > 1)
+            if (i > 1) {
                 write(STDOUT_FILENO, "\n", 1);
+            }
             print_header(fName);
         }
+
+        if (argv[i][0] == '-') {
+            continue;
+        }
+
         int fd = open(fName, O_RDONLY);
         if (fd == -1) {
             perror("open");
