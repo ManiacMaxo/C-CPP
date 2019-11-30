@@ -1,8 +1,8 @@
 a.out
 .ipch
 .bin
-in.txt
 .DS_Store
 .*.swp
 .*.swo
 .zip
+.txt
