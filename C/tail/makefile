@@ -3,4 +3,4 @@ tail: tail.o
 tail.o: tail.c
 	gcc -c tail.c
 clean:
-	rm -f tail.o tail
+	rm -f tail.o tail temp.txt
