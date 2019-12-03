@@ -50,7 +50,7 @@ class Stack {
     }
 };
 
-main() {
+int main() {
     Stack s;
     try {
         for (int i = 0; i < 12; i++) {
