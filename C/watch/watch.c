@@ -1,33 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
-void compile_func(char **func) {
+int run_cmd(const char *cmd, char **args) {
     pid_t pid;
-    int status;
+    int wstatus;
 
-    if ((pid = fork()) < 0) {
-        perror("execution failed");
+    pid = fork();
+    if (pid == -1) {  // parent, no memory
+        perror("fork");
+        return 0;
+    } else if (pid == 0) {  // child
+        execvp(cmd, args);
+        perror("execvp");
         exit(1);
-    } else if (pid == 0) {
-        if (execvp(*func, func) < 0) {
-            perror("execution failed");
-            exit(1);
-        }
-    } else {
-        while (wait(&status) != pid) {
-        }
+    } else {  // parent
+        // wait for the child to finish
+        while (wait(&wstatus) != pid)
+            ;
+        return wstatus == 0;  // was it a gracefull child exit?
     }
 }
 
 int main(int argc, char **argv) {
-    char *func = "ls";
-    execvp(func, "-la");
-    // char *func = argv[1];
-    int i = 0;
-    do {
-        printf("i = %d\n", i++);
-        // compile_func(func);
-        sleep(2);
-    } while (42);
+    const char *cmd = argv[1];
+    char **args = malloc(sizeof(char *) * argc);
+
+    if (argc >= 2) {
+        int i;
+        for (i = 1; i < argc; i++) {
+            args[i - 1] = argv[i];
+        }
+        args[i - 1] = NULL;
+        while (42) {
+            run_cmd(cmd, args);
+            sleep(2);
+        }
+    }
 }
