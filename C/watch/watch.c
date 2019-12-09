@@ -1,9 +1,25 @@
+/* ------------------------------------------------------------------------
+NAME: Victor Gorchilov
+CLASS: 11a
+NUMBER: 8
+FILE NAME: watch.c (unix file name)
+FILE PURPOSE:
+implementation of watch function in c
+------------------------------------------------------------------------ */
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
-int run_cmd(const char *cmd, char **args) {
+void run_cmd(const char *cmd, char **args) {
+    /* ------------------------------------------------------------------------
+    FUNCTION: error
+    run a given unix command with error checking
+    PARAMETERS:
+    command and arguments
+    the command and its arguments
+    ------------------------------------------------------------------------ */
+
     pid_t pid;
     int wstatus;
 
@@ -13,13 +29,11 @@ int run_cmd(const char *cmd, char **args) {
         return 0;
     } else if (pid == 0) {  // child
         execvp(cmd, args);
-        perror("execvp");
+        perror(cmd);
         exit(1);
-    } else {  // parent
-        // wait for the child to finish
-        while (wait(&wstatus) != pid)
-            ;
-        return wstatus == 0;  // was it a gracefull child exit?
+    } else {                             // parent
+        while (wait(&wstatus) != pid) {  // wait for the child to finish
+        }
     }
 }
 

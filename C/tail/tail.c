@@ -139,7 +139,8 @@ int main(int argc, char **argv) {
     if (argc == 1) {  // no file arguments
         read_std();
     } else {
-        if (argc > 2) multiple_files = 1;
+        if (argc > 2)
+            multiple_files = 1;
         char *fName;
 
         for (int i = 1; i < argc; i++) {  // cycle through all given files
@@ -155,7 +156,8 @@ int main(int argc, char **argv) {
                     continue;
                 }
             }
-            if (multiple_files && i > 1) {  // apply headers only if files are > 1
+            if (multiple_files &&
+                i > 1) {  // apply headers only if files are > 1
                 if (write(STDOUT_FILENO, "\n", 1) == -1 || errno == 28) {
                     error("error writing '%s'", "standard ouput");
                 }
