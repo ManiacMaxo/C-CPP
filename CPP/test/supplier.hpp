@@ -1,6 +1,12 @@
+#ifndef SUPPLIER_HPP
+#define SUPPLIER_HPP
+
+#include <iostream>
 #include <string>
 #include <vector>
 #include "build.hpp"
+#include "materials.hpp"
+#include "receipt.hpp"
 using namespace std;
 
 class Truck {
@@ -16,48 +22,51 @@ class Truck {
     double get_max_load() { return max_load; }
 };
 
-class Receipt {
-    vector<Liquids> liquids;
-    vector<Solids> solids;
-    int days;
-
-   public:
-    Receipt(vector<Liquids> liquids, vector<Solids> solids) {
-        this->liquids = liquids;
-        this->solids = solids;
-        days = 0;
-    }
-    Receipt() { days = 0; }
-
-    vector<Liquids> get_liquids() { return liquids; }
-    vector<Solids> get_solids() { return solids; }
-    int get_days() { return days; }
-
-    void add_liquid(Liquids liquid) { liquids.push_back(liquid); }
-    void add_solid(Solids solid) { solids.push_back(solid); }
-    void add_day() { days++; }
-};
-
 class Supplier {
     vector<Truck> base_trucks;  // all trucks
     vector<Truck> trucks;       // available trucks
 
    public:
-    vector<Truck> order(string name, double quantity, bool type) {
+    vector<Truck> delivery(string name, double quantity, bool type) {
         // type 1 liquids, type 0 solids
-        vector<Truck> order;
+        vector<Truck> delivery;
         for (int i = 0; i < trucks.size(); i++) {
-            if (trucks[i].is_liquids == type) {
+            if (trucks[i].is_liquids() == type) {
                 quantity -= trucks[i].get_max_load();
-                order.push_back(trucks[i]);
+                delivery.push_back(trucks[i]);
             }
 
             if (quantity <= 0) {
                 break;
             }
         }
-        return order;
+        return delivery;
     }
 
-    void receipt(Build build) {}
+    void receipt(Build build) {
+        Receipt receipt = build.get_receipt();
+        vector<Liquids> liquids = receipt.get_liquids();
+        vector<Solids> solids = receipt.get_solids();
+
+        cout << "Liquids:" << endl;
+        double quantity = 0;
+        double price = 0;
+        for (auto i = liquids.begin(); i != liquids.end(); i++) {
+            quantity += i->get_volume();
+            price += i->get_price();
+            cout << "A total of " << quantity << "litres and costs" << price
+                 << endl;
+        }
+        quantity = 0;
+        price = 0;
+        cout << "Solids:" << endl;
+        for (auto i = solids.begin(); i != solids.end(); i++) {
+            quantity += i->get_quantity();
+            price += i->get_price();
+            cout << "A total of " << quantity << "pieces and costs" << price
+                 << endl;
+        }
+    }
 };
+
+#endif
