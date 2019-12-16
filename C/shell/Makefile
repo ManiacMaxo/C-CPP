@@ -1,6 +1,6 @@
-main: main.o
-	gcc -o main main.o
-main.o: main.c
-	gcc -c main.c
+shell: shell.o
+	gcc -o shell shell.o
+shell.o: shell.c
+	gcc -c shell.c
 clean:
-	rm -f main.o main temp.txt
+	rm -f shell.o shell

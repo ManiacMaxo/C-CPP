@@ -1,15 +1,5 @@
-/* ------------------------------------------------------------------------
-NAME: Victor Gorchilov
-CLASS: 11a
-NUMBER: 8
-FILE NAME: watch.c (unix file name)
-FILE PURPOSE:
-implementation of watch function in c
------------------------------------------------------------------------- */
-
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 
 void run_cmd(const char *cmd, char **args) {
     /* ------------------------------------------------------------------------
@@ -37,6 +27,16 @@ void run_cmd(const char *cmd, char **args) {
     }
 }
 
-void parser(char *input) {}
+char **parse_cmdline(const char *cmdline) {
+    char *temp_cmdline = cmdline;
+    char *token = strtok(cmdline, " ");
+    char **argv = malloc(sizeof(char) * 100);
+    int i = 0;
+    while (token != NULL) {
+        argv[i++] = token;
+        token = strtok(NULL, temp_cmdline);
+    }
+    return argv;
+}
 
 int main() {}
