@@ -26,7 +26,7 @@ void run_cmd(const char *cmd, char **args) {
     pid = fork();
     if (pid == -1) {  // parent, no memory
         perror("fork");
-        return 0;
+        exit(1);
     } else if (pid == 0) {  // child
         execvp(cmd, args);
         perror(cmd);
@@ -37,6 +37,19 @@ void run_cmd(const char *cmd, char **args) {
     }
 }
 
-void parser(char *input) {}
+int main(int argc, char **argv) {
+    const char *cmd = argv[1];
+    char **args = malloc(sizeof(char *) * argc);
 
-int main() {}
+    if (argc >= 2) {
+        int i;
+        for (i = 1; i < argc; i++) {
+            args[i - 1] = argv[i];
+        }
+        args[i - 1] = NULL;
+        while (42) {
+            run_cmd(cmd, args);
+            sleep(2);
+        }
+    }
+}
