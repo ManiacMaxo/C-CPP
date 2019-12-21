@@ -1,7 +1,9 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-void run_cmd(const char *cmd, char **args) {
+int run_cmd(const char *cmd, char **args) {
     /* ------------------------------------------------------------------------
     FUNCTION: error
     run a given unix command with error checking
@@ -18,25 +20,35 @@ void run_cmd(const char *cmd, char **args) {
         perror("fork");
         return 0;
     } else if (pid == 0) {  // child
-        execvp(cmd, args);
+        execv(cmd, args);
         perror(cmd);
-        exit(1);
+        return 1;
     } else {                             // parent
         while (wait(&wstatus) != pid) {  // wait for the child to finish
         }
     }
+    return 0;
 }
 
-char **parse_cmdline(const char *cmdline) {
+void parse_cmdline(char *cmdline, char **args) {
     char *temp_cmdline = cmdline;
     char *token = strtok(cmdline, " ");
-    char **argv = malloc(sizeof(char) * 100);
     int i = 0;
     while (token != NULL) {
-        argv[i++] = token;
+        args[i++] = token;
         token = strtok(NULL, temp_cmdline);
     }
-    return argv;
+    args[i] = NULL;
 }
 
-int main() {}
+int main() {
+    char *cmdline = malloc(sizeof(char) * 100);
+    char **args = malloc(sizeof(cmdline));
+    int i = 0;
+    while (i != 4) {
+        printf("$ ");
+        fgets(cmdline, 100, stdin);
+        parse_cmdline(cmdline, args);
+        run_cmd(args[0], args);
+    }
+}
