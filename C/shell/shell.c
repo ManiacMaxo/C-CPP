@@ -1,3 +1,12 @@
+/* ------------------------------------------------------------------------
+NAME: Victor Gorchilov
+CLASS: 11a
+NUMBER: 8
+FILE NAME: shell.c
+FILE PURPOSE:
+implementation of a basic shell in c
+------------------------------------------------------------------------ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,7 +20,6 @@ int run_cmd(const char *cmd, char **args) {
     command and arguments
     the command and its arguments
     ------------------------------------------------------------------------ */
-
     pid_t pid;
     int wstatus;
 
@@ -31,12 +39,23 @@ int run_cmd(const char *cmd, char **args) {
 }
 
 void parse_cmdline(char *cmdline, char **args) {
-    char *temp_cmdline = cmdline;
+    /* ------------------------------------------------------------------------
+    FUNCTION: error
+    parse input string and split on spaces
+    PARAMETERS:
+    input and arguments
+    input string and the arguments to parse into
+    ------------------------------------------------------------------------ */
     char *token = strtok(cmdline, " ");
     int i = 0;
     while (token != NULL) {
         args[i++] = token;
-        token = strtok(NULL, temp_cmdline);
+        token = strtok(NULL, " ");
+    }
+    char *temp = &args[i - 1][strlen(args[i - 1]) - 1];
+    // last argument, last character (-1 because of \0)
+    if (*temp == '\n') {  // remove newline from input
+        *temp = '\0';
     }
     args[i] = NULL;
 }
@@ -44,8 +63,7 @@ void parse_cmdline(char *cmdline, char **args) {
 int main() {
     char *cmdline = malloc(sizeof(char) * 100);
     char **args = malloc(sizeof(cmdline));
-    int i = 0;
-    while (i != 4) {
+    while (42) {
         printf("$ ");
         fgets(cmdline, 100, stdin);
         parse_cmdline(cmdline, args);
