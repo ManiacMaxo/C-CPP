@@ -6,11 +6,13 @@ FILE NAME: shell.c
 FILE PURPOSE:
 implementation of a basic shell in c
 ------------------------------------------------------------------------ */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+#define MAX_CMD_LEN 1024
+#define MAX_CMD_ARRAY 100
 
 int run_cmd(const char *cmd, char **args) {
     /* ------------------------------------------------------------------------
@@ -52,20 +54,33 @@ void parse_cmdline(char *cmdline, char **args) {
         args[i++] = token;
         token = strtok(NULL, " ");
     }
-    char *temp = &args[i - 1][strlen(args[i - 1]) - 1];
+
     // last argument, last character (-1 because of \0)
+    char *temp = &args[i - 1][strlen(args[i - 1]) - 1];
     if (*temp == '\n') {  // remove newline from input
         *temp = '\0';
     }
-    args[i] = NULL;
+
+    // add NULL as last argument
+    if (args[i - 1][0] == '\0') {
+        // last token is empty. terminate here
+        args[i - 1] = NULL;
+    } else {
+        // add one more element
+        args[i] = NULL;
+    }
 }
 
 int main() {
-    char *cmdline = malloc(sizeof(char) * 100);
-    char **args = malloc(sizeof(cmdline));
+    char *cmdline = malloc(sizeof(char) * MAX_CMD_LEN);
+    char **args = malloc(sizeof(char *) * MAX_CMD_ARRAY);
     while (42) {
         printf("$ ");
-        fgets(cmdline, 100, stdin);
+        if (fgets(cmdline, MAX_CMD_LEN, stdin) == NULL) {
+            break;
+        }
+        // FIXME: check if last symbol \n. if so - remove, if not - expand the
+        // buffer and read again
         parse_cmdline(cmdline, args);
         run_cmd(args[0], args);
     }
