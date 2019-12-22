@@ -30,9 +30,10 @@ int run_cmd(const char *cmd, char **args) {
         perror("fork");
         return 0;
     } else if (pid == 0) {  // child
-        execv(cmd, args);
-        perror(cmd);
-        return 1;
+        if (execv(cmd, args) < 0) {
+            perror(cmd);
+        }
+        // return 1;
     } else {                             // parent
         while (wait(&wstatus) != pid) {  // wait for the child to finish
         }
@@ -84,4 +85,6 @@ int main() {
         parse_cmdline(cmdline, args);
         run_cmd(args[0], args);
     }
+    free(cmdline);
+    free(args);
 }
