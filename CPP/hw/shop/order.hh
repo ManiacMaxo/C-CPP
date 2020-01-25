@@ -5,27 +5,26 @@
 #include "user.hh"
 using namespace std;
 
-class NotAvailable : public exception {
-} AvailableExeption;
+class NotAvailable : exception {};
 
 class Order {
-    int id;
+    unsigned int id;
     User user;
-    vector<Tech> techItems;
-    vector<Clothing> clothingItems;
-    map<Tech, int> quantityTech;
-    map<Clothing, int> quantityClothing;
-    int status;
+    map<Tech, int> techMap;
+    map<Clothing, int> clothingMap;
+    string status[3] = {"New", "In Progress", "Shipped"};
+    int statusID;
 
    public:
-    int getId();
+    Order(User user);
+    // Getters and setters
+    int getId() const;
     void setId(int id);
-    User getUser();
+    User getUser() const;
     void setUser(User user);
-    vector<Tech> getTechItems();
-    vector<Clothing> getClothingItems();
-    int getStatus();
-    void setStatus(int status);
+    string getStatus() const;
+    void setStatus(int num);
+    // functionality
     void addItem(Tech item);
     void addItem(Clothing item);
 };

@@ -27,19 +27,17 @@ void Tech::setWarranty(int warranty) { this->warranty = warranty; }
 float Tech::getWeight() { return this->weight; }
 void Tech::setWeight(float weight) { this->weight = weight; }
 
-bool operator==(Tech a, Tech b) {
-    if (a.getName() == b.getName() && a.getType() == b.getType()) {
-        return 1;
-    }
-    return 0;
-}
+// bool operator==(Tech a, Tech b) {
+//     if (a.getName() == b.getName() && a.getType() == b.getType()) {
+//         return 1;
+//     }
+//     return 0;
+// }
 
-bool operator==(Clothing a, Clothing b) {
-    if (a.getName() == b.getName() && a.getColor() == b.getColor() &&
-        a.getSize() == b.getSize() && a.getMaterial() == b.getMaterial()) {
-        return 1;
-    }
-    return 0;
-}
-
-int main() {}
+// bool operator==(Clothing a, Clothing b) {
+//     if (a.getName() == b.getName() && a.getColor() == b.getColor() &&
+//         a.getSize() == b.getSize() && a.getMaterial() == b.getMaterial()) {
+//         return 1;
+//     }
+//     return 0;
+// }
