@@ -7,12 +7,12 @@ FILE PURPOSE:
 implementation of multithreading in c
 finding number of primes until n
 ------------------------------------------------------------------------ */
+#pragma GCC diagnostic ignored "-Wint-to-void-pointer-cast"
 #include <math.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define INBUFLEN sizeof(char) * 100
 
 int prime(unsigned int num) {
@@ -62,7 +62,9 @@ int input() {
     char* str = malloc(INBUFLEN);
     fgets(str, INBUFLEN, stdin);
     int num = -1;  // quit on anything other than p
-    if (str[0] == 'p') {
+    if (str[0] == 'q') {
+        return -1;
+    } else if (str[0] == 'p') {
         for (int i = 0; i < strlen(str); i++) {
             if (str[i] < '0' || str[i] > '9') {
                 str[i] = ' ';
@@ -70,6 +72,8 @@ int input() {
         }
 
         num = atoi(str);
+    } else {
+        return -2;
     }
     free(str);
     return num;
@@ -82,6 +86,9 @@ int main() {
         int num = input();
         if (num == -1) {
             return 0;
+        } else if (num == -2) {
+            printf("Error: Not a valid input!\n");
+            continue;
         }
         pthread_create(&threads[i++], NULL, num_primes, (void*)num);
 
