@@ -1,6 +1,5 @@
-primes: primes.o
-	gcc -o primes primes.o
-primes.o: primes.c
-	gcc -c primes.c
+all:
+	gcc -Wno-int-to-void-pointer-cast -c main.c
+	gcc -pthread -o primes main.o -lm
 clean:
-	rm -f primes.o primes
+	rm primes main.o

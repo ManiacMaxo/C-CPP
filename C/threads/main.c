@@ -2,18 +2,17 @@
 NAME: Victor Gorchilov
 CLASS: 11a
 NUMBER: 8
-FILE NAME: threads.c
+FILE NAME: thread.c
 FILE PURPOSE:
 implementation of multithreading in c
 finding number of primes until n
 ------------------------------------------------------------------------ */
-#pragma GCC diagnostic ignored "-Wint-to-void-pointer-cast"
+// #pragma GCC diagnostic ignored "-Wint-to-void-pointer-cast"
 #include <math.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#define INBUFLEN sizeof(char) * 100
+#define BUFLEN sizeof(char) * 100
 
 int prime(unsigned int num) {
     /* ------------------------------------------------------------------------
@@ -26,6 +25,7 @@ int prime(unsigned int num) {
         return 0;
     }
     for (unsigned int i = 2; i <= (unsigned int)sqrt(num); i++) {
+        // for (unsigned int i = 2; i < num; i++) {
         if (num % i == 0) {
             return 0;
         }
@@ -59,41 +59,43 @@ int input() {
     PARAMETERS:
     none
     ------------------------------------------------------------------------ */
-    char* str = malloc(INBUFLEN);
-    fgets(str, INBUFLEN, stdin);
-    int num = -1;  // quit on anything other than p
-    if (str[0] == 'q') {
-        return -1;
+    char* str = malloc(BUFLEN);
+    fgets(str, BUFLEN, stdin);
+    int num = 0;
+    if (str[0] == 'e') {
+        num = -1;
     } else if (str[0] == 'p') {
-        for (int i = 0; i < strlen(str); i++) {
+        int i = 0;
+        while (str[i] != '\0') {
             if (str[i] < '0' || str[i] > '9') {
                 str[i] = ' ';
             }
+            i++;
         }
-
         num = atoi(str);
     } else {
-        return -2;
+        num = -2;
     }
     free(str);
     return num;
 }
 
 int main() {
-    pthread_t threads[15];
-    int i = 0;
-    while (42) {
+    pthread_t thread[100];
+    int i = -1;
+    while (i < 100) {
         int num = input();
         if (num == -1) {
-            return 0;
+            break;
         } else if (num == -2) {
             printf("Error: Not a valid input!\n");
             continue;
         }
-        pthread_create(&threads[i++], NULL, num_primes, (void*)num);
-
-        if (i == 16) {
-            i = 0;
-        }
+        pthread_create(&thread[++i], NULL, num_primes, (void*)num);
     }
+    while (i >= 0) {
+        printf("i=%d\n", i);
+        pthread_join(thread[i--], NULL);
+    }
+    return 0;
 }
