@@ -3,9 +3,7 @@
 #include <unistd.h>
 #define N 20
 #define M 5
-pthread_mutex_t cars[M] = {PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER,
-                           PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER,
-                           PTHREAD_MUTEX_INITIALIZER};
+pthread_mutex_t cars[M] = {PTHREAD_MUTEX_INITIALIZER};
 
 void *test(void *arg) {
     int tested[M] = {0, 0, 0, 0, 0};  // which cars are tested
