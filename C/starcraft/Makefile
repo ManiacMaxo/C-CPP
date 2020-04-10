@@ -1,5 +1,5 @@
 starcraft: main.o
-	gcc main.o -o starcraft
+	gcc -lcurses main.o -o starcraft
 main.o: main.c
 	gcc -c main.c
 clean:
