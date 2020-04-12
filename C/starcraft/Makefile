@@ -1,6 +1,6 @@
-starcraft: main.o
-	gcc -lcurses main.o -o starcraft
+starcraft3: main.o
+	gcc -pthread main.o -o starcraft3
 main.o: main.c
-	gcc -c main.c
+	gcc -Wall -c main.c
 clean:
-	rm starcraft main.o
+	rm starcraft3 main.o
