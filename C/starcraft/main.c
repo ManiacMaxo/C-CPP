@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
     // --------------- runtime ---------------
 
-    while (center.soldiers < 20) {
+    while (num_m_blocks || center.soldiers < 20) {
         usleep(1000);
     }
     sleep(5);
