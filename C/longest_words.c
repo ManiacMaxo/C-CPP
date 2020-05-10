@@ -7,7 +7,9 @@ int words(char text[]) {
     int m_len = 0, c_len = 0;  // max & current
     int count = 0;             // number of longest words
     for (int i = 0; i < len; i++) {
-        while ((text[i] > 'A' && text[i] < 'Z') || (text[i] > 'a' && text[i] < 'z') || text[i] == '\'' || text[i] == '-') {
+        while ((text[i] > 'A' && text[i] < 'Z') ||
+               (text[i] > 'a' && text[i] < 'z') || text[i] == '\'' ||
+               text[i] == '-') {
             c_len++;
             i++;
         }
