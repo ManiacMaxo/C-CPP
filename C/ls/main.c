@@ -25,6 +25,13 @@ implementation of the unix command `ls` in c
 size_t files_cnt;
 
 char f_type(mode_t mode) {
+    /* ------------------------------------------------------------------------
+    FUNCTION: file type
+    gets file type from mode
+    PARAMETERS:
+    mode : mode_t, mode to get type
+    ------------------------------------------------------------------------ */
+
     if (mode & S_IFREG) {  // regular file
         return '-';
     } else if (mode & S_IFDIR) {  // directory
@@ -44,6 +51,13 @@ char f_type(mode_t mode) {
 }
 
 int long_format(char *path, char *f_name) {
+    /* ------------------------------------------------------------------------
+    FUNCTION: long format
+    for flag `l` prints more info for file
+    PARAMETERS:
+    path : string, filepath
+    f_name : string, name of file to print
+    ------------------------------------------------------------------------ */
     struct stat st;
     stat(path, &st);
     char type = f_type(st.st_mode);
@@ -82,7 +96,7 @@ int print_dir(char *path, unsigned short options) {
     FUNCTION: print directory
     traverse all files in a directory
     PARAMETERS:
-    path : string,
+    path : string, file path
     options : bitmap, options are l a and r (not case sensitive)
     ------------------------------------------------------------------------ */
     const char datatypes[] = "pcdb-ls ";
@@ -149,6 +163,13 @@ int print_dir(char *path, unsigned short options) {
 }
 
 void ls(unsigned short options, char **files) {
+    /* ------------------------------------------------------------------------
+    FUNCTION: ls
+    base function for ls
+    PARAMETERS:
+    options : bitmap, optional, flags
+    files : array[char *], optional, files to traverse
+    ------------------------------------------------------------------------ */
     struct stat st;
 
     for (int f = 0; f < files_cnt; f++) {
@@ -172,6 +193,15 @@ void ls(unsigned short options, char **files) {
 }
 
 void parse_cmdline(int argc, char **argv, unsigned short *options, char **files) {
+    /* ------------------------------------------------------------------------
+    FUNCTION: parse commandline
+    parsing input arguments to options and files
+    PARAMETERS:
+    argc : int, count of argv
+    argv : array[char *], input arguments to program
+    options : bitmap, empty - to flags
+    files : array[char *], empty - filepaths
+    ------------------------------------------------------------------------ */
     *options = 0;
     //*files = NULL;
 
