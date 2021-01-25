@@ -11,9 +11,7 @@ typedef struct {
     int size;
 } list_t;
 
-void init_list(list_t *list) {
-    list->head = NULL;
-}
+void init_list(list_t *list) { list->head = NULL; }
 
 void list_destroy(list_t *list) {
     struct node_t *tmp = list->head;
@@ -47,8 +45,7 @@ void insert(list_t *list, int value) {
     };
 }
 
-void empty(list_t *list) {
-}
+void empty(list_t *list) {}
 
 int main() {
     list_t list;

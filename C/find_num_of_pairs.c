@@ -36,7 +36,6 @@ int findNumOfPairs(int *socks, int num_all_socks) {
 int main() {
     int i, num_all_socks, socks[100];
     scanf("%d", &num_all_socks);
-    for (i = 0; i < num_all_socks; i++)
-        scanf("%d", &socks[i]);
+    for (i = 0; i < num_all_socks; i++) scanf("%d", &socks[i]);
     printf("%d", findNumOfPairs(socks, num_all_socks));
 }

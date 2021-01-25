@@ -30,7 +30,8 @@ product_t *production(factory_t *factories) {
 
 int product_available(warehouse_t wh, product_t product) {
     for (int i = 0; i < sizeof(wh.products) / sizeof(product_t); i++) {
-        if (strcmp(product.name, wh.products[i].name) && product.quality == wh.products[i].quality) {
+        if (strcmp(product.name, wh.products[i].name) &&
+            product.quality == wh.products[i].quality) {
             return i;  // where
         }
     }

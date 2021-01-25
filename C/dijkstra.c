@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #define MAX_DIST 999
 
-int find(int start, int finish, int n, int map[n][n]) {  // using dijkstra pathfinding algorithm
+int find(int start, int finish, int n,
+         int map[n][n]) {  // using dijkstra pathfinding algorithm
     int dist[n], been[n];
     int next;
     int i, j;
@@ -22,7 +23,8 @@ int find(int start, int finish, int n, int map[n][n]) {  // using dijkstra pathf
 
     for (int k = 1; k < n - 1; k++) {
         for (j = 0; j < n; j++) {  // find shortest route to point j
-            if (dist[next] + map[next][j] < dist[j] && been[j] == 0 && next != j) {
+            if (dist[next] + map[next][j] < dist[j] && been[j] == 0 &&
+                next != j) {
                 dist[j] = dist[next] + map[next][j];
             }
         }

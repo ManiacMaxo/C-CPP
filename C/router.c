@@ -24,7 +24,8 @@ int main() {
         qsort(packets, 10, sizeof(packet_t), my_cmp);
         printf("sending out packets...\n");
         for (int i = 0; i < 10; i++) {
-            printf("From: %s\tTo: %s\tContent: %s", packets[i].src, packets[i].dst, packets[i].data);
+            printf("From: %s\tTo: %s\tContent: %s", packets[i].src,
+                   packets[i].dst, packets[i].data);
         }
         free(packets);
     }

@@ -8,8 +8,7 @@ int myFind(char *str, char *find) {
         if (str[i] == find[j]) {
             while (str[i] == find[j]) {
                 j++;
-                if (j == strlen(find))
-                    return 1;
+                if (j == strlen(find)) return 1;
             }
         }
     }

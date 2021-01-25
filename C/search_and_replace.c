@@ -3,7 +3,8 @@
 #define MAX 100
 
 int searchOccur(char *str, char *find) {
-    int lenStr = strlen(str), lenFind = strlen(find), j = 0, lastIsInFind = 0, numOccur = 0;
+    int lenStr = strlen(str), lenFind = strlen(find), j = 0, lastIsInFind = 0,
+        numOccur = 0;
     for (int i = 0; i < lenStr; i++) {
         if (str[i] == find[j]) {
             lastIsInFind = 1;
@@ -21,7 +22,8 @@ int searchOccur(char *str, char *find) {
 
 char *replace(char *str, char *replace, char *find, int numOccur) {
     char *strReplaced;
-    strReplaced = malloc(strlen(str) + numOccur * abs(strlen(find) - strlen(replace)));
+    strReplaced =
+        malloc(strlen(str) + numOccur * abs(strlen(find) - strlen(replace)));
 }
 
 int main() {

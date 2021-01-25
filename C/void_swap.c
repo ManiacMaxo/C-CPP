@@ -18,7 +18,7 @@ void swap(void **a, void **b, size_t size) {
     // two pointers to swap
     //------------------------------------------------------------------------
 
-    /* 
+    /*
     char *x = a, *y = b, temp;
     for (size_t i = 0; i < size; i++) {
         temp = x[i];

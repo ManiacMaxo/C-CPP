@@ -6,9 +6,7 @@
 
 char S[2][16];
 
-char F(char x) {
-    return S[0][x >> 6] + S[1][x >> 4];
-}
+char F(char x) { return S[0][x >> 6] + S[1][x >> 4]; }
 
 void encrypt(char L, char R, char* out) {
     for (short i = 0; i < 16; i++) {

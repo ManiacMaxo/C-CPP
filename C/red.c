@@ -58,8 +58,7 @@ int main() {
     tResult r;
     scanf("%d", &n);
     a = malloc(n);
-    for (int i = 0; i < n; i++)
-        scanf("%d", &a[i]);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
     r = red(n, a);
     printf("%d %d", r.start + 1, r.end + 1);
 

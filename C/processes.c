@@ -59,7 +59,10 @@ int main() {
             queue[mpos][v[mpos].num] = process;
             if ((pid % 5) == 0) {
                 for (int i = 0; i < PROCNUM; i++) {
-                    printf("Queue for processor %d: %d processes, Total time: %d\n", i + 1, v[i].num, v[i].t_time);
+                    printf(
+                        "Queue for processor %d: %d processes, Total time: "
+                        "%d\n",
+                        i + 1, v[i].num, v[i].t_time);
                 }
             }
         }

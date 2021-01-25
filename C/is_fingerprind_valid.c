@@ -3,10 +3,11 @@
 
 int IsFingerprintValid(char *Fingerprint) {
     int i;
-    if (strlen(Fingerprint) != 16)
-        return 0;
+    if (strlen(Fingerprint) != 16) return 0;
     for (i = 0; i < 16; i++) {
-        if (Fingerprint[i] != 45 || Fingerprint[i] != 47 || Fingerprint[i] != 92 || Fingerprint[i] != 95 || Fingerprint[i] != 124 || Fingerprint[i] != 126)
+        if (Fingerprint[i] != 45 || Fingerprint[i] != 47 ||
+            Fingerprint[i] != 92 || Fingerprint[i] != 95 ||
+            Fingerprint[i] != 124 || Fingerprint[i] != 126)
             return 0;
     }
     return 1;

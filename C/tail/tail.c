@@ -139,8 +139,7 @@ int main(int argc, char **argv) {
     if (argc == 1) {  // no file arguments
         read_std();
     } else {
-        if (argc > 2)
-            multiple_files = 1;
+        if (argc > 2) multiple_files = 1;
         char *fName;
 
         for (int i = 1; i < argc; i++) {  // cycle through all given files

@@ -14,7 +14,7 @@ void split_num(int num, int len) {
     int j = len - 1;
     for (i = 0; i <= j; i++, j--) {
         int temp = arr[i];
-        arr[i] = arr[j]; 
+        arr[i] = arr[j];
         arr[j] = temp;
     }
 

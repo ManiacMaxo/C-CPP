@@ -98,5 +98,5 @@ int main() {
     diagonal_right(matrix, n);
     diagonal_left(matrix, n);
     printf("%d %d %d %s\n", max, lx, ly, dir);
-    //free(matrix);
+    // free(matrix);
 }

@@ -23,5 +23,4 @@ void push(queue_t *queue, node_t *node) {
     queue->first->next = temp;
 }
 
-int main() {
-}
+int main() {}

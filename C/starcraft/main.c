@@ -129,7 +129,8 @@ void *worker(void *arg) {
             }
             center.minerals += val;
             pthread_mutex_unlock(&center.mutex);
-            printf("SCV %d delivered minerals to the Command center\n", num + 1);
+            printf("SCV %d delivered minerals to the Command center\n",
+                   num + 1);
             break;
         }
     }
@@ -149,7 +150,8 @@ void *addUnit(void *arg) {
             unit = getchar();
         } while (unit != 'm' && unit != 's' && unit != 't');
 
-        if (center.soldiers + center.num_workers == 200 || center.minerals < 50) {
+        if (center.soldiers + center.num_workers == 200 ||
+            center.minerals < 50) {
             printf("\033[0;31m");
             printf("Not enough minerals.\n");
             printf("\033[0m");
@@ -166,11 +168,12 @@ void *addUnit(void *arg) {
             case 's':  // worker
                 center.num_workers++;
                 center.minerals -= 50;
-                center.workers =
-                    realloc(center.workers, sizeof(pthread_t) * center.num_workers);
+                center.workers = realloc(
+                    center.workers, sizeof(pthread_t) * center.num_workers);
                 sleep(4);
-                if (pthread_create(&center.workers[center.num_workers - 1], NULL,
-                                   worker, (void *)center.num_workers - 1)) {
+                if (pthread_create(&center.workers[center.num_workers - 1],
+                                   NULL, worker,
+                                   (void *)center.num_workers - 1)) {
                     perror("pthread_create");
                 }
                 pthread_detach(center.workers[center.num_workers - 1]);

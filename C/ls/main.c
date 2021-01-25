@@ -112,7 +112,8 @@ int print_dir(char *path, unsigned short options) {
     DIR *dir;
     dir = opendir(path);
     if (!dir) {  // permission
-        fprintf(stderr, "ls: cannot open directory %s: Permission denied\n", path);
+        fprintf(stderr, "ls: cannot open directory %s: Permission denied\n",
+                path);
         return 1;
     }
     struct dirent *entry;
@@ -131,7 +132,8 @@ int print_dir(char *path, unsigned short options) {
         if ((!(options & O_ALL) &&
              (entry->d_name[0] == '.' ||
               entry->d_name[strlen(entry->d_name) - 1] == '~')) ||
-            strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            strcmp(entry->d_name, ".") == 0 ||
+            strcmp(entry->d_name, "..") == 0) {
             continue;
         }
         if (options & O_LONGFORMAT) {  // print short format
@@ -148,7 +150,8 @@ int print_dir(char *path, unsigned short options) {
         }
     }
     if (options & O_LONGFORMAT) {
-        printf("total %d\n", blocks >> 1);  // total number of blocks in directory
+        printf("total %d\n",
+               blocks >> 1);  // total number of blocks in directory
     }
     if (options & O_RECURSIVE) {  // print stached directories
         for (int i = 0; i < d; i++) {
@@ -192,7 +195,8 @@ void ls(unsigned short options, char **files) {
     }
 }
 
-void parse_cmdline(int argc, char **argv, unsigned short *options, char **files) {
+void parse_cmdline(int argc, char **argv, unsigned short *options,
+                   char **files) {
     /* ------------------------------------------------------------------------
     FUNCTION: parse commandline
     parsing input arguments to options and files

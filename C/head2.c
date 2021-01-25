@@ -32,7 +32,8 @@ int main(int argc, char **argv) {
                 perror("read");
                 return 1;
             } else if (read_value == 0) {  // end of file with no new line
-                ch = '\n';                 // just set a new line. the loop will break due to read_value == 0
+                ch = '\n';  // just set a new line. the loop will break due to
+                            // read_value == 0
             }
 
             buf[idx++] = ch;

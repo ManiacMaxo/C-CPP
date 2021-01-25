@@ -12,26 +12,31 @@ int countOccurences(const char *str, const char *find) {
     return count;
 }
 
-int findReplace(char *result, const char *str, const char *find, char *replace) {
+int findReplace(char *result, const char *str, const char *find,
+                char *replace) {
     int num = 0;
     char *pfind = str;
     char *pstart = str;
 
     while ((pfind = strstr(pfind, find))) {
-        strncpy(result, pstart, (pfind - pstart));  // copy the find before found position to result
+        strncpy(
+            result, pstart,
+            (pfind - pstart));  // copy the find before found position to result
         result += (pfind - pstart);                 // move result
         strncpy(result, replace, strlen(replace));  // add the replaced value
         result += strlen(replace);                  // move result
-        pfind += strlen(find);                      // move the pointer in the original str
-        pstart = pfind;                             // set the position to start looking for next find
+        pfind += strlen(find);  // move the pointer in the original str
+        pstart = pfind;  // set the position to start looking for next find
         num++;
     }
     int remaining = strlen(str) - (pstart - str);
     if (remaining > 0) {
-        strncpy(result, pstart, remaining);  // copy or append the remaining find after last substitution (or if no substitutions)
+        strncpy(result, pstart,
+                remaining);  // copy or append the remaining find after last
+                             // substitution (or if no substitutions)
         result += remaining;
     }
-    *(result) = NULL;  //null terminate the result
+    *(result) = NULL;  // null terminate the result
     return num;
 }
 
@@ -46,7 +51,9 @@ int main() {
     printf("Replace: ");
     gets(replace);
 
-    int spaceAllocated = strlen(str) + countOccurences(str, find) * (strlen(replace) - strlen(find)) + 1;
+    int spaceAllocated =
+        strlen(str) +
+        countOccurences(str, find) * (strlen(replace) - strlen(find)) + 1;
     char result[spaceAllocated];
 
     num = findReplace(result, str, find, replace);

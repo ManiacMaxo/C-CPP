@@ -7,7 +7,8 @@ struct point_t {
 };
 
 int threeOnLine(struct point_t *p) {
-    return (p[1].y - p[0].y) * (p[2].x - p[1].x) == (p[2].y - p[1].y) * (p[1].x - p[0].x);
+    return (p[1].y - p[0].y) * (p[2].x - p[1].x) ==
+           (p[2].y - p[1].y) * (p[1].x - p[0].x);
 }
 
 int main() {

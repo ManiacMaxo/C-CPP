@@ -40,9 +40,7 @@ void stack_destroy(stack *s) {
     free(s->elements);
 }
 
-int stack_empty(stack *s) {
-    return !s->size;
-}
+int stack_empty(stack *s) { return !s->size; }
 
 void stack_push(stack *s, int num) {
     //------------------------------------------------------------------------

@@ -6,7 +6,8 @@
 void *read_image(const char *filepath);
 
 int main(int argc, char **argv) {
-    if (argv[1] == NULL || read_image(argv[1]) == NULL) {  // does the file exist
+    if (argv[1] == NULL ||
+        read_image(argv[1]) == NULL) {  // does the file exist
         printf("Unable to open file\n");
         return 0;
     }

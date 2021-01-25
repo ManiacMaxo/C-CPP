@@ -1,8 +1,7 @@
 #include <stdio.h>
 
 int absDiff(int a, int b) {
-    if (b > a)
-        return b - a;
+    if (b > a) return b - a;
     return a - b;
 }
 
@@ -12,8 +11,7 @@ int findSmallestDifference(int *arr) {
         for (int j = 0; j < 10; j++) {
             if (arr[i] == arr[j]) continue;
             int diff = absDiff(arr[i], arr[j]);
-            if (diff < min)
-                min = diff;
+            if (diff < min) min = diff;
         }
     }
     return min;

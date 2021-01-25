@@ -5,8 +5,7 @@
 int findInArr(char find, char *arr) {
     int i, len = stren(arr);
     for (i = 0; i < len; i++) {
-        if (find == arr[i])
-            return 1;
+        if (find == arr[i]) return 1;
     }
     return 0;
 }

@@ -74,13 +74,20 @@ int main() {
 
     for (i = 0; i < a1_len; i++) {
         for (j = 0; j < a2_len; j++) {
-            if (l1.x1 == l1.x2 && l2.x1 == l2.x2) {  // line 1 is vertical and line 2 is vertical
+            if (l1.x1 == l1.x2 &&
+                l2.x1 == l2.x2) {  // line 1 is vertical and line 2 is vertical
                 manhdist = abs(l1.x1 - l2.x1) + abs(a1[i] - a2[j]);
-            } else if (l1.x1 == l1.x2 && l2.y1 == l2.y2) {  // line 1 is vertical and line 2 is horizontal
+            } else if (l1.x1 == l1.x2 &&
+                       l2.y1 == l2.y2) {  // line 1 is vertical and line 2 is
+                                          // horizontal
                 manhdist = abs(l1.x1 - a2[j]) + abs(a1[i] - l2.y1);
-            } else if (l1.y1 == l1.y2 && l2.y1 == l2.y2) {  // line 1 is horizontal and line 2 is horizontal
+            } else if (l1.y1 == l1.y2 &&
+                       l2.y1 == l2.y2) {  // line 1 is horizontal and line 2 is
+                                          // horizontal
                 manhdist = abs(a1[i] - a2[j]) + abs(l1.y1 - l2.y1);
-            } else if (l1.y1 == l1.y2 && l2.x1 == l2.x2) {  // line 1 is horizontal and line 2 is vertical
+            } else if (l1.y1 == l1.y2 &&
+                       l2.x1 == l2.x2) {  // line 1 is horizontal and line 2 is
+                                          // vertical
                 manhdist = abs(a1[i] - l2.x1) + abs(l1.y1 - a2[j]);
             }
             if (manhdist < min) {

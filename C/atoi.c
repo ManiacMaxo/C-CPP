@@ -7,7 +7,7 @@ int toInteger(char *str) {
     for (i = 0; i < strlen(str); i++, k--) {
         numStr += (str[i] - '0') * pow(i, k);
     }
-    //    numStr = (str[1] - '0') * 100 + (str[2] - '0') * 10 + (str[3] - '0');
+    // numStr = (str[1] - '0') * 100 + (str[2] - '0') * 10 + (str[3] - '0');
     return numStr;
 }
 

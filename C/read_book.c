@@ -38,6 +38,4 @@ int append(char* ans, char* word) {
     fclose(fp);
 }
 
-int main() {
-    char* book = "book.txt";
-}
+int main() { char* book = "book.txt"; }

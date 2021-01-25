@@ -16,7 +16,8 @@ struct forest_t {
 struct forest_t ageTrees(struct forest_t *forest) {
     for (int i = 0; i < forest->tree_count; i++) {
         forest->trees[i].age++;
-        forest->trees[i].height += 0.1 + ((float)rand() / (float)(RAND_MAX)) * 1.9;
+        forest->trees[i].height +=
+            0.1 + ((float)rand() / (float)(RAND_MAX)) * 1.9;
     }
     return *forest;
 }
